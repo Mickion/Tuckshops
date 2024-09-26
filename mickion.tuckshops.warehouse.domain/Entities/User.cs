@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using mickion.tuckshops.warehouse.domain.Entities.Base;
 
 namespace mickion.tuckshops.warehouse.domain.Entities
 {
-    public class User
+    public class User: BaseEntity
     {
         public string UserId { get; set; } = string.Empty;
     }

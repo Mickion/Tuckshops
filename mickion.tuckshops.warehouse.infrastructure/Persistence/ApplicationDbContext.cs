@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using mickion.tuckshops.warehouse.domain.Entities;
 using mickion.tuckshops.warehouse.infrastructure.Persistence.Configurations;
+using System.Reflection;
 
 namespace mickion.tuckshops.warehouse.infrastructure.Persistence
 {
@@ -18,11 +19,9 @@ namespace mickion.tuckshops.warehouse.infrastructure.Persistence
 
         public DbSet<User>? Users { get; set; }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder) { 
-            base.OnModelCreating(modelBuilder);
-
-            // Add table configurations
-            modelBuilder.ApplyConfiguration(new StockBrandsConfiguration());
+        protected override void OnModelCreating(ModelBuilder modelBuilder) 
+        {
+            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         }
     }
 }

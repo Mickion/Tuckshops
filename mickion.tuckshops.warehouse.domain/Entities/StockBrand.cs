@@ -10,9 +10,5 @@ namespace mickion.tuckshops.warehouse.domain.Entities
 
         ////TODO : Extract to own entity
         //public string BrandProvider { get; set; } = string.Empty;
-
-        public Guid CreatedById { get; set; }
-
-        public Guid ModifiedById { get; set; }
     }
 }
