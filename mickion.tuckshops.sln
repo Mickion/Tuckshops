@@ -23,13 +23,35 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "mickion.tuckshops.finance",
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "mickion.tuckshops.stores", "mickion.tuckshops.stores", "{4DE9DAF6-7C0E-4A5A-BC81-09699807A65A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mickion.tuckshops.finance.api", "mickion.tuckshops.finance.api\mickion.tuckshops.finance.api.csproj", "{9E692137-0824-459D-90B3-4FC6645E9D95}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "mickion.tuckshops.finance.api", "mickion.tuckshops.finance.api\mickion.tuckshops.finance.api.csproj", "{9E692137-0824-459D-90B3-4FC6645E9D95}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mickion.tuckshops.finance.application", "mickion.tuckshops.finance.application\mickion.tuckshops.finance.application.csproj", "{ED9ABAF5-89D9-44DB-A08B-64D7D920307E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "mickion.tuckshops.finance.application", "mickion.tuckshops.finance.application\mickion.tuckshops.finance.application.csproj", "{ED9ABAF5-89D9-44DB-A08B-64D7D920307E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mickion.tuckshops.finance.domain", "mickion.tuckshops.finance.domain\mickion.tuckshops.finance.domain.csproj", "{AE9385FF-0FF1-4D03-8E36-E4D128FE9BE0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "mickion.tuckshops.finance.domain", "mickion.tuckshops.finance.domain\mickion.tuckshops.finance.domain.csproj", "{AE9385FF-0FF1-4D03-8E36-E4D128FE9BE0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mickion.tuckshops.finance.infrastructure", "mickion.tuckshops.finance.infrastructure\mickion.tuckshops.finance.infrastructure.csproj", "{43AC7812-1B6F-4F55-AEC6-653045F0C6C3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "mickion.tuckshops.finance.infrastructure", "mickion.tuckshops.finance.infrastructure\mickion.tuckshops.finance.infrastructure.csproj", "{43AC7812-1B6F-4F55-AEC6-653045F0C6C3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "mickion.tuckshops.identity", "mickion.tuckshops.identity", "{61FC3D1F-6C94-4E0D-8BFE-ACDEF7D3A3BC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mickion.tuckshops.identity.api", "mickion.tuckshops.identity.api\mickion.tuckshops.identity.api.csproj", "{DFF03ED4-CA88-42C6-9560-98C9F8CF1F97}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mickion.tuckshops.identity.application", "mickion.tuckshops.identity.application\mickion.tuckshops.identity.application.csproj", "{57F24891-6796-42CD-95EA-51EBEFCD52ED}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mickion.tuckshops.identity.domain", "mickion.tuckshops.identity.domain\mickion.tuckshops.identity.domain.csproj", "{EE5BBB58-7A6A-44D3-9205-13AE629A8020}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mickion.tuckshops.identity.infrastructure", "mickion.tuckshops.identity.infrastructure\mickion.tuckshops.identity.infrastructure.csproj", "{36CBD838-4CBF-4209-B259-912EBABA03E1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mickion.tuckshops.stores.api", "mickion.tuckshops.stores.api\mickion.tuckshops.stores.api.csproj", "{91B46A59-CC26-494E-B903-FBC9E93AE330}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mickion.tuckshops.stores.application", "mickion.tuckshops.stores.application\mickion.tuckshops.stores.application.csproj", "{C88563EE-19B7-403F-9B50-73ED92521D6A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mickion.tuckshops.stores.domain", "mickion.tuckshops.stores.domain\mickion.tuckshops.stores.domain.csproj", "{E9E94C1A-E88B-4165-B264-9CF5CF802C7E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mickion.tuckshops.stores.infrastucture", "mickion.tuckshops.stores.infrastucture\mickion.tuckshops.stores.infrastucture.csproj", "{FA103A75-1C34-4F22-9F69-114D9830A0DD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "mickion.tuckshops.shared", "mickion.tuckshops.shared", "{3077EAAA-28DD-4A79-97A4-48D975D5D66D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mickion.tuckshops.shared", "mickion.tuckshops.shared\mickion.tuckshops.shared.csproj", "{5A12A0B8-D2EC-41FA-B1CF-B53290FC0E4B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -73,6 +95,42 @@ Global
 		{43AC7812-1B6F-4F55-AEC6-653045F0C6C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{43AC7812-1B6F-4F55-AEC6-653045F0C6C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{43AC7812-1B6F-4F55-AEC6-653045F0C6C3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DFF03ED4-CA88-42C6-9560-98C9F8CF1F97}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DFF03ED4-CA88-42C6-9560-98C9F8CF1F97}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DFF03ED4-CA88-42C6-9560-98C9F8CF1F97}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DFF03ED4-CA88-42C6-9560-98C9F8CF1F97}.Release|Any CPU.Build.0 = Release|Any CPU
+		{57F24891-6796-42CD-95EA-51EBEFCD52ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{57F24891-6796-42CD-95EA-51EBEFCD52ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{57F24891-6796-42CD-95EA-51EBEFCD52ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{57F24891-6796-42CD-95EA-51EBEFCD52ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EE5BBB58-7A6A-44D3-9205-13AE629A8020}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE5BBB58-7A6A-44D3-9205-13AE629A8020}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE5BBB58-7A6A-44D3-9205-13AE629A8020}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE5BBB58-7A6A-44D3-9205-13AE629A8020}.Release|Any CPU.Build.0 = Release|Any CPU
+		{36CBD838-4CBF-4209-B259-912EBABA03E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{36CBD838-4CBF-4209-B259-912EBABA03E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{36CBD838-4CBF-4209-B259-912EBABA03E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{36CBD838-4CBF-4209-B259-912EBABA03E1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{91B46A59-CC26-494E-B903-FBC9E93AE330}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{91B46A59-CC26-494E-B903-FBC9E93AE330}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{91B46A59-CC26-494E-B903-FBC9E93AE330}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{91B46A59-CC26-494E-B903-FBC9E93AE330}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C88563EE-19B7-403F-9B50-73ED92521D6A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C88563EE-19B7-403F-9B50-73ED92521D6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C88563EE-19B7-403F-9B50-73ED92521D6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C88563EE-19B7-403F-9B50-73ED92521D6A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E9E94C1A-E88B-4165-B264-9CF5CF802C7E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E9E94C1A-E88B-4165-B264-9CF5CF802C7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E9E94C1A-E88B-4165-B264-9CF5CF802C7E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E9E94C1A-E88B-4165-B264-9CF5CF802C7E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA103A75-1C34-4F22-9F69-114D9830A0DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA103A75-1C34-4F22-9F69-114D9830A0DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA103A75-1C34-4F22-9F69-114D9830A0DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA103A75-1C34-4F22-9F69-114D9830A0DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5A12A0B8-D2EC-41FA-B1CF-B53290FC0E4B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A12A0B8-D2EC-41FA-B1CF-B53290FC0E4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A12A0B8-D2EC-41FA-B1CF-B53290FC0E4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A12A0B8-D2EC-41FA-B1CF-B53290FC0E4B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -90,6 +148,17 @@ Global
 		{ED9ABAF5-89D9-44DB-A08B-64D7D920307E} = {6EF09A5E-B36B-4C6A-AF01-13CF79C68E0C}
 		{AE9385FF-0FF1-4D03-8E36-E4D128FE9BE0} = {6EF09A5E-B36B-4C6A-AF01-13CF79C68E0C}
 		{43AC7812-1B6F-4F55-AEC6-653045F0C6C3} = {6EF09A5E-B36B-4C6A-AF01-13CF79C68E0C}
+		{61FC3D1F-6C94-4E0D-8BFE-ACDEF7D3A3BC} = {C3405A43-8942-45F6-B84D-CFF7848A455D}
+		{DFF03ED4-CA88-42C6-9560-98C9F8CF1F97} = {61FC3D1F-6C94-4E0D-8BFE-ACDEF7D3A3BC}
+		{57F24891-6796-42CD-95EA-51EBEFCD52ED} = {61FC3D1F-6C94-4E0D-8BFE-ACDEF7D3A3BC}
+		{EE5BBB58-7A6A-44D3-9205-13AE629A8020} = {61FC3D1F-6C94-4E0D-8BFE-ACDEF7D3A3BC}
+		{36CBD838-4CBF-4209-B259-912EBABA03E1} = {61FC3D1F-6C94-4E0D-8BFE-ACDEF7D3A3BC}
+		{91B46A59-CC26-494E-B903-FBC9E93AE330} = {4DE9DAF6-7C0E-4A5A-BC81-09699807A65A}
+		{C88563EE-19B7-403F-9B50-73ED92521D6A} = {4DE9DAF6-7C0E-4A5A-BC81-09699807A65A}
+		{E9E94C1A-E88B-4165-B264-9CF5CF802C7E} = {4DE9DAF6-7C0E-4A5A-BC81-09699807A65A}
+		{FA103A75-1C34-4F22-9F69-114D9830A0DD} = {4DE9DAF6-7C0E-4A5A-BC81-09699807A65A}
+		{3077EAAA-28DD-4A79-97A4-48D975D5D66D} = {C3405A43-8942-45F6-B84D-CFF7848A455D}
+		{5A12A0B8-D2EC-41FA-B1CF-B53290FC0E4B} = {3077EAAA-28DD-4A79-97A4-48D975D5D66D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2F1041DD-2DCC-45DB-8E9C-2D8309FC24A0}

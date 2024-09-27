@@ -1,0 +1,43 @@
+﻿using mickion.tuckshops.shared.Entities;
+using System.ComponentModel.DataAnnotations;
+
+namespace mickion.tuckshops.warehouse.domain.Entities
+{
+    // TODO: Refactor as I go
+    // TODO: Normalize entities as I go
+    // TODO: Move to common dll
+    public class Product: BaseEntity
+    {
+        [Required]
+        public string Code { get; set; } = string.Empty; //TODO: Generate unique code
+
+        [Required]
+        public string Name { get; set; } = string.Empty; // i.e. Bread
+
+        public string Color { get; set; } = string.Empty; // i.e. White bread (optional)
+
+        
+        public string Barcode { get; set; } = string.Empty; // TODO: Prop own entity
+
+        [Required]
+        public DateTime ExpiryDateTime { get; set; } = default;
+
+        [Required]
+        public DateTime UseByDateTime { get; set; } = default;
+
+        //One-to-Many Relationship
+        [Required]
+        public Guid BrandId { get; set; } // ForeignKey        
+        public Brand Brand { get; set; } = new Brand(); // Navigation property
+
+        //One-to-Many Relationship
+        [Required]
+        public Guid MeasurementsId { get; set; } // ForeignKey          
+        public Measurement Measurements { get; set; } = new Measurement(); // Navigation property
+
+        //One-to-One Relationship
+        [Required]
+        public Quantity Quantity { get; set; } = new Quantity(); // Navigation property
+
+    }
+}

@@ -6,9 +6,9 @@ namespace mickion.tuckshops.warehouse.infrastructure.Repositories.Base
 {
     // Internal to Infrastructure
     // Outside world don't need to know the implemantation details
-    internal class UnitOfWork(ApplicationDbContext dbContext): Repositories(dbContext), IUnitOfWork
+    internal class UnitOfWork(WarehouseDbContext dbContext): RepositoriesFactory(dbContext), IUnitOfWork
     {
-        private readonly ApplicationDbContext _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
+        private readonly WarehouseDbContext _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
 
         public async Task CommitChangesAsync(CancellationToken cancellationToken = default) => await _dbContext.SaveChangesAsync(cancellationToken);
 
