@@ -1,4 +1,4 @@
-﻿using mickion.tuckshops.shared.Entities;
+﻿using mickion.tuckshops.shared.domain.Entities;
 
 namespace mickion.tuckshops.identity.domain.Entities
 {

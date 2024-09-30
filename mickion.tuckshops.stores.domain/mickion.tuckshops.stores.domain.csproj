@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\mickion.tuckshops.shared.domain\mickion.tuckshops.shared.domain.csproj" />
+  </ItemGroup>
+
 </Project>

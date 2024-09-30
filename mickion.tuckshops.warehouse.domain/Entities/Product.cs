@@ -1,4 +1,4 @@
-﻿using mickion.tuckshops.shared.Entities;
+﻿using mickion.tuckshops.shared.domain.Entities;
 using System.ComponentModel.DataAnnotations;
 
 namespace mickion.tuckshops.warehouse.domain.Entities
