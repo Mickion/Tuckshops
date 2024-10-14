@@ -18,6 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\mickion.tuckshops.shared.application\mickion.tuckshops.shared.application.csproj" />
     <ProjectReference Include="..\mickion.tuckshops.warehouse.application\mickion.tuckshops.warehouse.application.csproj" />
     <ProjectReference Include="..\mickion.tuckshops.warehouse.infrastructure\mickion.tuckshops.warehouse.infrastructure.csproj" />
   </ItemGroup>

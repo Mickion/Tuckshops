@@ -1,10 +1,13 @@
+using mickion.tuckshops.shared.application.Logger;
 using mickion.tuckshops.warehouse.application;
 using mickion.tuckshops.warehouse.infrastructure;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddApplicationLayer();
+builder.Services.AddApplicationLogging();
 builder.Services.AddInfrastructureLayer(builder.Configuration);
 
 builder.Services.AddControllers();
@@ -12,7 +15,9 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+
 var app = builder.Build();
+app.UseSerilogRequestLogging();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -20,6 +25,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
 
 app.UseHttpsRedirection();
 
