@@ -7,13 +7,23 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Features\Brands\" />
+    <Folder Include="Features\Brands\Commands\Delete\" />
+    <Folder Include="Features\Brands\Commands\Update\" />
+    <Folder Include="Features\Product\Commands\Create\" />
+    <Folder Include="Features\Product\Commands\Delete\" />
+    <Folder Include="Features\Product\Commands\Update\" />
+    <Folder Include="Features\Product\Queries\" />
     <Folder Include="Features\StockOrders\" />
     <Folder Include="Features\StockOut\" />
     <Folder Include="Features\StockIn\" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="MediatR" Version="12.4.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\mickion.tuckshops.shared.application\mickion.tuckshops.shared.application.csproj" />
     <ProjectReference Include="..\mickion.tuckshops.warehouse.domain\mickion.tuckshops.warehouse.domain.csproj" />
   </ItemGroup>
 

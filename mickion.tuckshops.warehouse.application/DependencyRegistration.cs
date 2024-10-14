@@ -1,5 +1,6 @@
 ﻿
 using Microsoft.Extensions.DependencyInjection;
+using System.Reflection;
 
 namespace mickion.tuckshops.warehouse.application
 {
@@ -7,6 +8,7 @@ namespace mickion.tuckshops.warehouse.application
     {
         public static IServiceCollection AddApplicationLayer(this IServiceCollection services) 
         {
+            services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
             return services;
         }
     }
