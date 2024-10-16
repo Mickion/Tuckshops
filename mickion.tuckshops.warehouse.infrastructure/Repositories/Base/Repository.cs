@@ -6,7 +6,11 @@ namespace mickion.tuckshops.warehouse.infrastructure.Repositories.Base
     internal class Repository<TEntity>(DbSet<TEntity> dbSet) : IRepository<TEntity> where TEntity : class
     {
         private readonly DbSet<TEntity> _dbSet = dbSet ?? throw new ArgumentNullException(nameof(dbSet));
-        public void Add(TEntity entity) => _dbSet.Add(entity);
+        public TEntity Add(TEntity entity)
+        {            
+            _dbSet.Add(entity);
+            return entity;
+        }
 
         public async Task AddAsync(TEntity entity, CancellationToken cancellationToken) => await _dbSet.AddAsync(entity, cancellationToken);
         

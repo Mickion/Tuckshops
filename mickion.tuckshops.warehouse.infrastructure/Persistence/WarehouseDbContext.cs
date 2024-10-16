@@ -2,12 +2,13 @@
 using mickion.tuckshops.warehouse.domain.Entities;
 using mickion.tuckshops.warehouse.infrastructure.Persistence.Configurations;
 using System.Reflection;
+using mickion.tuckshops.shared.infrastructure.Persistence;
 
 namespace mickion.tuckshops.warehouse.infrastructure.Persistence
 {
     // TODO: Notes for documentation
     // Add-Migration InitWarehouseDb -Context WarehouseDbContext -Project mickion.tuckshops.warehouse.infrastructure
-    public class WarehouseDbContext(DbContextOptions<WarehouseDbContext> options) : DbContext(options)
+    public class WarehouseDbContext(DbContextOptions<WarehouseDbContext> options) : DbContext(options), ISharedApplicationDbContext
     {
         public DbSet<Brand>? Brands { get; set; }
 

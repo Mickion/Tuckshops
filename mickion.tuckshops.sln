@@ -53,9 +53,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "mickion.tuckshops.shared", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "mickion.tuckshops.shared.domain", "mickion.tuckshops.shared.domain\mickion.tuckshops.shared.domain.csproj", "{4AF34494-66AB-4D05-A9E7-5A7DC6791DA6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mickion.tuckshops.shared.application", "mickion.tuckshops.shared.application\mickion.tuckshops.shared.application.csproj", "{D40129CF-7F1D-4041-A602-40BFE405BCC1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "mickion.tuckshops.shared.application", "mickion.tuckshops.shared.application\mickion.tuckshops.shared.application.csproj", "{D40129CF-7F1D-4041-A602-40BFE405BCC1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mickion.tuckshops.warehouse.UnitTests", "mickion.tuckshops.warehouse.UnitTests\mickion.tuckshops.warehouse.UnitTests.csproj", "{F6EB1BEC-5677-4C94-B519-29BBD3E12D98}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "mickion.tuckshops.warehouse.UnitTests", "mickion.tuckshops.warehouse.UnitTests\mickion.tuckshops.warehouse.UnitTests.csproj", "{F6EB1BEC-5677-4C94-B519-29BBD3E12D98}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mickion.tuckshops.shared.infrastructure", "mickion.tuckshops.shared.infrastructure\mickion.tuckshops.shared.infrastructure.csproj", "{D21A5F25-C662-4CC0-A090-45E5A6C4E83F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -143,6 +145,10 @@ Global
 		{F6EB1BEC-5677-4C94-B519-29BBD3E12D98}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F6EB1BEC-5677-4C94-B519-29BBD3E12D98}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F6EB1BEC-5677-4C94-B519-29BBD3E12D98}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D21A5F25-C662-4CC0-A090-45E5A6C4E83F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D21A5F25-C662-4CC0-A090-45E5A6C4E83F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D21A5F25-C662-4CC0-A090-45E5A6C4E83F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D21A5F25-C662-4CC0-A090-45E5A6C4E83F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -173,6 +179,7 @@ Global
 		{4AF34494-66AB-4D05-A9E7-5A7DC6791DA6} = {3077EAAA-28DD-4A79-97A4-48D975D5D66D}
 		{D40129CF-7F1D-4041-A602-40BFE405BCC1} = {3077EAAA-28DD-4A79-97A4-48D975D5D66D}
 		{F6EB1BEC-5677-4C94-B519-29BBD3E12D98} = {A15FD4CA-ECAE-49D1-82A3-E2A5277D2B97}
+		{D21A5F25-C662-4CC0-A090-45E5A6C4E83F} = {3077EAAA-28DD-4A79-97A4-48D975D5D66D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2F1041DD-2DCC-45DB-8E9C-2D8309FC24A0}

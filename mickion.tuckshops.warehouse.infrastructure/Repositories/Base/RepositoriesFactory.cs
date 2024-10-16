@@ -9,7 +9,7 @@ namespace mickion.tuckshops.warehouse.infrastructure.Repositories.Base
     /// Repositories factory
     /// </summary>
     /// <param name="dbContext"></param>
-    internal class RepositoriesFactory(WarehouseDbContext dbContext) : IRepositoriesFactory
+    public class RepositoriesFactory(WarehouseDbContext dbContext) : IRepositoriesFactory
     {
         private readonly WarehouseDbContext _dbContext = dbContext;
         private readonly Dictionary<Type, object> _repositories = new();

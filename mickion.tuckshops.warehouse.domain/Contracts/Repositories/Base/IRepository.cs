@@ -18,7 +18,7 @@ namespace mickion.tuckshops.warehouse.domain.Contracts.Repositories.Base
 
         Task<TEntity> FindAsync(int id);
              
-        void Add(TEntity entity);
+        TEntity Add(TEntity entity);
 
         Task AddAsync(TEntity entity, CancellationToken cancellationToken);
 
