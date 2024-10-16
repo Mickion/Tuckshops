@@ -2,6 +2,7 @@
 using mickion.tuckshops.warehouse.domain.Entities;
 using mickion.tuckshops.warehouse.domain.Contracts.Repositories.Base;
 using mickion.tuckshops.warehouse.infrastructure.Persistence;
+using mickion.tuckshops.warehouse.domain.Contracts.Repositories;
 
 namespace mickion.tuckshops.warehouse.infrastructure.Repositories.Base
 {
@@ -16,11 +17,13 @@ namespace mickion.tuckshops.warehouse.infrastructure.Repositories.Base
 
         public IRepository<Product> ProductRepository => GetRepository<Product>();
 
-        public IRepository<Brand> BrandRepository => GetRepository<Brand>();
+        //public IRepository<Brand> BrandRepository => GetRepository<Brand>();
 
         public IRepository<Measurement> MeasurementRepository => GetRepository<Measurement>();
 
-        public IRepository<Quantity> QuantityRepository => GetRepository<Quantity>();        
+        public IRepository<Quantity> QuantityRepository => GetRepository<Quantity>();
+
+        public IBrandRepository BrandRepository => (IBrandRepository)GetRepository<Brand>();
 
 
         /// <summary>

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace mickion.tuckshops.warehouse.domain.Contracts.Repositories.Base
+﻿namespace mickion.tuckshops.warehouse.domain.Contracts.Repositories.Base
 {
     public interface IRepository<TEntity> where TEntity : class
     {
@@ -12,11 +6,11 @@ namespace mickion.tuckshops.warehouse.domain.Contracts.Repositories.Base
 
         Task<IQueryable<TEntity>> GetAllAsync();
 
-        //TODO: Find by expression function
-        
-        TEntity Find(int id);
+#warning TODO: Find by expression function
 
-        Task<TEntity> FindAsync(int id);
+        TEntity Find(Guid id);
+
+        Task<TEntity> FindAsync(Guid id);
              
         TEntity Add(TEntity entity);
 
@@ -24,6 +18,7 @@ namespace mickion.tuckshops.warehouse.domain.Contracts.Repositories.Base
 
         void Update(TEntity entity);
 
-        void Delete(TEntity entity);        
+        void Delete(TEntity entity);
+        
     }
 }

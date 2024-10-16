@@ -31,8 +31,7 @@ namespace mickion.tuckshops.warehouse.api.Controllers.v1
         {
             // TODO: FluentValidation
             var brand = await mediatr.Send(new CreateBrandCommand(brandName, brandAddress));
-            if (brand == null) return Results.BadRequest(ErrorMessage.FAILED_TO_CREATE_BRAND);
-            return Results.Ok(brand);
+            return (brand is not null) ? Results.Ok(brand) : Results.BadRequest(ErrorMessage.FAILED_TO_CREATE_BRAND); 
         }
     }
 }

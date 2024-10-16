@@ -18,17 +18,9 @@ namespace mickion.tuckshops.warehouse.infrastructure.Repositories.Base
 
         public async Task<IQueryable<TEntity>> GetAllAsync() => (IQueryable<TEntity>)await _dbSet.ToListAsync();
 
+        public TEntity Find(Guid id) => _dbSet.Find(id)!;
 
-        public TEntity Find(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<TEntity> FindAsync(int id)
-        {
-            throw new NotImplementedException();
-        }
-
+        public async Task<TEntity> FindAsync(Guid id) => await _dbSet.FindAsync(id);   
 
         public void Update(TEntity entity) => _dbSet.Update(entity);
 
