@@ -9,6 +9,7 @@ namespace mickion.tuckshops.warehouse.infrastructure.Repositories
     internal class BrandRepository(DbSet<Brand> dbSet) : Repository<Brand>(dbSet), IBrandRepository
     {
         private readonly DbSet<Brand> _dbSet = dbSet ?? throw new ArgumentNullException(nameof(dbSet));
-        public Task<Brand> FindByNameAsync(string name) => _dbSet.FirstOrDefaultAsync(x => x.Name == name)!;        
+        public Task<Brand> FindByNameAsync(string name) => 
+            _dbSet.Include(p => p.Products).FirstOrDefaultAsync(x => x.Name == name)!;        
     }
 }
