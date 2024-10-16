@@ -5,7 +5,6 @@ using mickion.tuckshops.warehouse.domain.Contracts.Repositories.Base;
 using Microsoft.Extensions.Configuration;
 using mickion.tuckshops.warehouse.infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
-using mickion.tuckshops.shared.infrastructure.Persistence;
 
 namespace mickion.tuckshops.warehouse.infrastructure
 {
@@ -17,7 +16,7 @@ namespace mickion.tuckshops.warehouse.infrastructure
             var connectionString = config.GetConnectionString("TuckShopWarehouse");
             services.AddDbContext<WarehouseDbContext>(options => options.UseSqlServer(connectionString));
 
-            services.AddScoped<ISharedApplicationDbContext, SharedApplicationDbContext>();
+            //services.AddScoped<ISharedApplicationDbContext, SharedApplicationDbContext>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             return services;
         }

@@ -8,7 +8,7 @@ namespace mickion.tuckshops.shared.domain.Entities
         /// Gets or sets Unique identifier 
         /// </summary>
         [Required]
-        public Guid Id { get; private set; } = Guid.Empty;
+        public Guid Id { get; set; } = Guid.Empty;
 
         public BaseEntity()
         {

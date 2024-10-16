@@ -38,10 +38,10 @@ namespace mickion.tuckshops.warehouse.infrastructure.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("DATETIME");
 
-                    b.Property<Guid>("ModifiedByUserId")
+                    b.Property<Guid?>("ModifiedByUserId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("ModifiedDate")
+                    b.Property<DateTime?>("ModifiedDate")
                         .HasColumnType("DATETIME");
 
                     b.Property<string>("Name")
@@ -65,10 +65,10 @@ namespace mickion.tuckshops.warehouse.infrastructure.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("DATETIME");
 
-                    b.Property<Guid>("ModifiedByUserId")
+                    b.Property<Guid?>("ModifiedByUserId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("ModifiedDate")
+                    b.Property<DateTime?>("ModifiedDate")
                         .HasColumnType("DATETIME");
 
                     b.Property<double>("Size")
@@ -116,10 +116,10 @@ namespace mickion.tuckshops.warehouse.infrastructure.Migrations
                     b.Property<Guid>("MeasurementsId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("ModifiedByUserId")
+                    b.Property<Guid?>("ModifiedByUserId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("ModifiedDate")
+                    b.Property<DateTime?>("ModifiedDate")
                         .HasColumnType("DATETIME");
 
                     b.Property<string>("Name")
@@ -150,10 +150,10 @@ namespace mickion.tuckshops.warehouse.infrastructure.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("DATETIME");
 
-                    b.Property<Guid>("ModifiedByUserId")
+                    b.Property<Guid?>("ModifiedByUserId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("ModifiedDate")
+                    b.Property<DateTime?>("ModifiedDate")
                         .HasColumnType("DATETIME");
 
                     b.Property<Guid>("ProductId")

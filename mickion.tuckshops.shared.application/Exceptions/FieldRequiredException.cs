@@ -1,4 +1,6 @@
-﻿namespace mickion.tuckshops.shared.application.Exceptions;
+﻿using mickion.tuckshops.shared.application.Messages;
 
-public class FieldRequiredException(string message) : Exception(message) { }
+namespace mickion.tuckshops.shared.application.Exceptions;
+
+public class FieldRequiredException(string message = ExceptionMessage.FIELD_IS_REQUIRED) : Exception(message) { }
    

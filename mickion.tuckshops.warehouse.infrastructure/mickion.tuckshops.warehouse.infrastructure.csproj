@@ -21,4 +21,8 @@
     <ProjectReference Include="..\mickion.tuckshops.warehouse.domain\mickion.tuckshops.warehouse.domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Migrations\" />
+  </ItemGroup>
+
 </Project>

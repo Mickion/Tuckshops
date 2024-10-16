@@ -20,8 +20,8 @@ namespace mickion.tuckshops.warehouse.infrastructure.Migrations
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "DATETIME", nullable: false),
                     CreatedByUserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ModifiedDate = table.Column<DateTime>(type: "DATETIME", nullable: false),
-                    ModifiedByUserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    ModifiedDate = table.Column<DateTime>(type: "DATETIME", nullable: true),
+                    ModifiedByUserId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -37,8 +37,8 @@ namespace mickion.tuckshops.warehouse.infrastructure.Migrations
                     Type = table.Column<string>(type: "nvarchar(100)", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "DATETIME", nullable: false),
                     CreatedByUserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ModifiedDate = table.Column<DateTime>(type: "DATETIME", nullable: false),
-                    ModifiedByUserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    ModifiedDate = table.Column<DateTime>(type: "DATETIME", nullable: true),
+                    ModifiedByUserId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -60,8 +60,8 @@ namespace mickion.tuckshops.warehouse.infrastructure.Migrations
                     MeasurementsId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "DATETIME", nullable: false),
                     CreatedByUserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ModifiedDate = table.Column<DateTime>(type: "DATETIME", nullable: false),
-                    ModifiedByUserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    ModifiedDate = table.Column<DateTime>(type: "DATETIME", nullable: true),
+                    ModifiedByUserId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -90,8 +90,8 @@ namespace mickion.tuckshops.warehouse.infrastructure.Migrations
                     ProductId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "DATETIME", nullable: false),
                     CreatedByUserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ModifiedDate = table.Column<DateTime>(type: "DATETIME", nullable: false),
-                    ModifiedByUserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    ModifiedDate = table.Column<DateTime>(type: "DATETIME", nullable: true),
+                    ModifiedByUserId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
                 constraints: table =>
                 {

@@ -1,3 +1,4 @@
+using mickion.tuckshops.shared.api.DependencyInjections;
 using mickion.tuckshops.shared.application.Logger;
 using mickion.tuckshops.warehouse.application;
 using mickion.tuckshops.warehouse.infrastructure;
@@ -9,6 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddApplicationLayer();
 builder.Services.AddApplicationLogging();
+builder.Services.AddApplicationVersioning(1);
 builder.Services.AddInfrastructureLayer(builder.Configuration);
 
 //builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
