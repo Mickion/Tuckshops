@@ -2,14 +2,12 @@
 
 namespace mickion.tuckshops.shared.domain.Entities
 {
-    public class BaseResponse<TEntity>
+    public class BaseResponse<TResponseDto>
     {
-        public bool Success { get; set; } = true;
+        public bool IsSuccess { get; set; } = true;
 
-        public string Message { get; set; } = string.Empty;
+        public List<ValidationFailure>? ErrorMessages { get; set; } = null;
 
-        public List<ValidationFailure>? ValidationErrors { get; set; } = null;
-
-        public TEntity? Data { get; set; } = default;
+        public TResponseDto? Data { get; set; } = default;
     }
 }

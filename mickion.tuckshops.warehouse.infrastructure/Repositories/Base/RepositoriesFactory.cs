@@ -23,6 +23,7 @@ namespace mickion.tuckshops.warehouse.infrastructure.Repositories.Base
 
         public IRepository<Quantity> QuantityRepository => GetRepository<Quantity>();
 
+#warning todo - relook at this and fix the bug
         public IBrandRepository BrandRepository => (IBrandRepository)GetRepository<Brand>();
 
 

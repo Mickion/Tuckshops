@@ -30,7 +30,7 @@ namespace mickion.tuckshops.warehouse.infrastructure
         {
             //services.AddScoped<ISharedApplicationDbContext, SharedApplicationDbContext>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
-            services.AddScoped<IBrandRepository, BrandRepository>();
+            //services.AddSingleton<IBrandRepository, BrandRepository>();
         }
     }
 }
