@@ -14,15 +14,12 @@ namespace mickion.tuckshops.warehouse.application.Features.Brands.Commands.Creat
             RuleFor(x => x.Name).NotEmpty().WithMessage(ValidationMessage.BRAND_NAME_REQUIRED);
             RuleFor(x => x.Name)
                 .MustAsync((x, cancellation) => BrandDoesNotExist(x))
-                .WithMessage("An event with the same name and date already exists.");
+                .WithMessage(ValidationMessage.BRAND_ALREADY_EXISTS);
 
             RuleFor(x => x.Address).NotEmpty().WithMessage(ValidationMessage.BRAND_ADDRESS_REQUIRED);
         }
 
-        private async Task<bool> BrandDoesNotExist(string name)
-        {
-            var exists = (await _unitOfWork.BrandRepository.FindAsync(x => x.Name == name) == null);
-            return (await _unitOfWork.BrandRepository.FindAsync(x => x.Name == name) == null);
-        }
+        private async Task<bool> BrandDoesNotExist(string name) =>await _unitOfWork.BrandRepository.FindAsync(x => x.Name == name) == null;
+       
     }
 }
