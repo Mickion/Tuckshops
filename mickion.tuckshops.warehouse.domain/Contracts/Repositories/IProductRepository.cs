@@ -1,7 +1,5 @@
 ﻿using mickion.tuckshops.warehouse.domain.Entities;
-using mickion.tuckshops.warehouse.domain.Contracts.Repositories.Base;
+using mickion.tuckshops.shared.domain.Contracts.Repositories.Base;
+namespace mickion.tuckshops.warehouse.domain.Contracts.Repositories;
 
-namespace mickion.tuckshops.warehouse.domain.Contracts.Repositories
-{
-    public interface IProductRepository : IRepository<Product> { }
-}
+public interface IProductRepository : IRepository<Product> { }

@@ -5,8 +5,6 @@ using mickion.tuckshops.warehouse.domain.Contracts.Repositories.Base;
 using Microsoft.Extensions.Configuration;
 using mickion.tuckshops.warehouse.infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
-using mickion.tuckshops.warehouse.domain.Contracts.Repositories;
-using mickion.tuckshops.warehouse.infrastructure.Repositories;
 
 namespace mickion.tuckshops.warehouse.infrastructure
 {

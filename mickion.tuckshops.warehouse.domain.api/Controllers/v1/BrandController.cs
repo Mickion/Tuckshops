@@ -1,9 +1,8 @@
-﻿using Asp.Versioning;
+﻿
 using MediatR;
+using Asp.Versioning;
 using mickion.tuckshops.shared.application.Messages;
 using mickion.tuckshops.warehouse.application.Features.Brands.Commands.Create;
-using mickion.tuckshops.warehouse.application.Features.Brands.Queries;
-using mickion.tuckshops.warehouse.application.Features.Brands.Queries.Get;
 using mickion.tuckshops.warehouse.application.Features.Brands.Queries.List;
 using Microsoft.AspNetCore.Mvc;
 

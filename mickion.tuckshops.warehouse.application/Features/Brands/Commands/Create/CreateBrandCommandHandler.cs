@@ -23,10 +23,12 @@ public class CreateBrandCommandHandler(ILogger<CreateBrandCommandHandler>? logge
         var validationResult = await _validator.ValidateAsync(request, cancellationToken);
         if (validationResult.IsValid is not true)        
             return HandlerResponseHelper<CreateBrandResponse, CreateBrandResponseDto>.Map(MapBrandToDto(newbrand), validationResult.Errors);
-        
-            
+
+
         newbrand = _unitOfWork.BrandRepository.Add(MapDtoToBrand(request));
         await _unitOfWork.CommitChangesAsync(cancellationToken);
+
+#warning Brand has been created, get products for this brand using Event and auto load them!!! -- https://dummyjson.com/products
 
         return HandlerResponseHelper<CreateBrandResponse, CreateBrandResponseDto>.Map(MapBrandToDto(newbrand), validationResult.Errors);
     }
