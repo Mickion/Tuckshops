@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using FluentValidation.Results;
+using MediatR;
 using mickion.tuckshops.shared.application.Exceptions;
 using mickion.tuckshops.shared.domain.Exceptions;
 using mickion.tuckshops.warehouse.application.Features.Brands.Commands.Create;
@@ -21,13 +22,14 @@ namespace mickion.tuckshops.warehouse.UnitTests.Application.Features.Brands
         private readonly Mock<IUnitOfWork> _unitOfWork = new();
         private readonly Mock<IValidator<CreateBrandCommand>> _validator = new();
         private readonly Mock<WarehouseDbContext> _warehouseDbContext = new();
+        private readonly Mock<IPublisher> _publisher = new();
 
         [Fact]
         public async Task CreateBrandCommandHandler_Should_ThrowArgumentNullException_WhenUnitOfWorkIsNullAsync()
         {
             // Arrange 
             CreateBrandCommand command = new("Sasko", "Sasko Building");
-            _handler = new CreateBrandCommandHandler(_logger.Object, _unitOfWork.Object, _validator.Object);
+            _handler = new CreateBrandCommandHandler(_logger.Object, _unitOfWork.Object, _validator.Object, _publisher.Object);
 
             // Act
             var exception = await Assert.ThrowsAsync<ArgumentNullException>(async () => await _handler.Handle(null, _cancellationToken));
@@ -42,7 +44,7 @@ namespace mickion.tuckshops.warehouse.UnitTests.Application.Features.Brands
         {
             // Arrange 
             CreateBrandCommand command = new("Sasko", "Sasko Building");
-            _handler = new CreateBrandCommandHandler(_logger.Object, _unitOfWork.Object, _validator.Object);
+            _handler = new CreateBrandCommandHandler(_logger.Object, _unitOfWork.Object, _validator.Object, _publisher.Object);
 
             // Act
             var exception = await Assert.ThrowsAsync<ArgumentNullException>(async () => await _handler.Handle(null, _cancellationToken));
@@ -57,7 +59,7 @@ namespace mickion.tuckshops.warehouse.UnitTests.Application.Features.Brands
         {
             // Arrange 
             CreateBrandCommand command = new("Sasko", "Sasko Building");
-            _handler = new CreateBrandCommandHandler(_logger.Object, _unitOfWork.Object, _validator.Object);
+            _handler = new CreateBrandCommandHandler(_logger.Object, _unitOfWork.Object, _validator.Object, _publisher.Object);
 
             // Act
             var exception = await Assert.ThrowsAsync<ArgumentNullException>(async () => await _handler.Handle(null, _cancellationToken));
@@ -71,7 +73,7 @@ namespace mickion.tuckshops.warehouse.UnitTests.Application.Features.Brands
         {
             // Arrange 
             CreateBrandCommand command = new(" ", "Sasko Building");
-            _handler = new CreateBrandCommandHandler(_logger.Object, _unitOfWork.Object, _validator.Object);
+            _handler = new CreateBrandCommandHandler(_logger.Object, _unitOfWork.Object, _validator.Object, _publisher.Object);
             _validator.Setup(v => v.ValidateAsync(command, _cancellationToken))
                 .ReturnsAsync(new ValidationResult(new List<ValidationFailure>()
                              {
@@ -84,8 +86,8 @@ namespace mickion.tuckshops.warehouse.UnitTests.Application.Features.Brands
             // Assert
             Assert.False(response.IsSuccess);
             Assert.NotEmpty(response.ErrorMessages!);
-            Assert.Equal("01 Jan 0001 00:00:00", response.Data!.CreatedDate.ToString());
-            Assert.True(Guid.TryParse(response.Data!.CreatedByUserId.ToString(), out _));
+            Assert.Equal("01 Jan 0001 00:00:00", response.Entity!.CreatedDate.ToString());
+            Assert.True(Guid.TryParse(response.Entity!.CreatedByUserId.ToString(), out _));
         }
 
         [Fact]
@@ -93,7 +95,7 @@ namespace mickion.tuckshops.warehouse.UnitTests.Application.Features.Brands
         {
             // Arrange 
             CreateBrandCommand command = new("Sasko", null);
-            _handler = new CreateBrandCommandHandler(_logger.Object, _unitOfWork.Object, _validator.Object);
+            _handler = new CreateBrandCommandHandler(_logger.Object, _unitOfWork.Object, _validator.Object, _publisher.Object);
             _unitOfWork.Setup(uof => uof.CommitChangesAsync(_cancellationToken));
             _validator.Setup(v => v.ValidateAsync(command, _cancellationToken))
                 .ReturnsAsync(new ValidationResult(new List<ValidationFailure>()
@@ -107,8 +109,8 @@ namespace mickion.tuckshops.warehouse.UnitTests.Application.Features.Brands
             // Assert
             Assert.False(response.IsSuccess);
             Assert.NotEmpty(response.ErrorMessages!);
-            Assert.Equal("01 Jan 0001 00:00:00", response.Data!.CreatedDate.ToString());
-            Assert.True(Guid.TryParse(response.Data!.CreatedByUserId.ToString(), out _));
+            Assert.Equal("01 Jan 0001 00:00:00", response.Entity!.CreatedDate.ToString());
+            Assert.True(Guid.TryParse(response.Entity!.CreatedByUserId.ToString(), out _));
         }
 
         [Fact]
@@ -116,7 +118,7 @@ namespace mickion.tuckshops.warehouse.UnitTests.Application.Features.Brands
         {
             // Arrange 
             CreateBrandCommand command = new("Sasko", "Sasko Building");
-            _handler = new CreateBrandCommandHandler(_logger.Object, _unitOfWork.Object, _validator.Object);
+            _handler = new CreateBrandCommandHandler(_logger.Object, _unitOfWork.Object, _validator.Object, _publisher.Object);
 
             _unitOfWork.Setup(unitOfWork => unitOfWork.BrandRepository.Add(It.IsAny<Brand>()))
                 .Returns(new Brand { Name= "Sasko", Address= "Sasko Building", CreatedDate=DateTime.Now, CreatedByUserId=new Guid()});
@@ -125,7 +127,7 @@ namespace mickion.tuckshops.warehouse.UnitTests.Application.Features.Brands
             _validator.Setup(v => v.ValidateAsync(command, _cancellationToken)).ReturnsAsync(new ValidationResult());
 
             // Act
-            CreateBrandResponse response = await _handler.Handle(command, _cancellationToken);
+            CreateBrandCommandResponse response = await _handler.Handle(command, _cancellationToken);
 
             // Assert
 
@@ -139,15 +141,15 @@ namespace mickion.tuckshops.warehouse.UnitTests.Application.Features.Brands
             Assert.Null(response.ErrorMessages);
 
             // assert data
-            Assert.NotNull(response.Data);
+            Assert.NotNull(response.Entity);
             Assert.Multiple(() =>
             {                
-                Assert.Equal(command.Name, response.Data.Name);
-                Assert.Equal(command.Address, response.Data.Address);
-                Assert.NotNull(response.Data.Id);
-                Assert.NotNull(response.Data.CreatedDate);
-                Assert.NotNull(response.Data.CreatedByUserId);
-                Assert.True(Guid.TryParse(response.Data!.CreatedByUserId.ToString(), out _)); //valid id                
+                Assert.Equal(command.Name, response.Entity.Name);
+                Assert.Equal(command.Address, response.Entity.Address);
+                Assert.NotNull(response.Entity.Id);
+                Assert.NotNull(response.Entity.CreatedDate);
+                Assert.NotNull(response.Entity.CreatedByUserId);
+                Assert.True(Guid.TryParse(response.Entity!.CreatedByUserId.ToString(), out _)); //valid id                
             });
         }
 
@@ -156,7 +158,7 @@ namespace mickion.tuckshops.warehouse.UnitTests.Application.Features.Brands
         {
             // Arrange 
             CreateBrandCommand command = new("Sasko", "Sasko Building");
-            _handler = new CreateBrandCommandHandler(_logger.Object, _unitOfWork.Object, _validator.Object);
+            _handler = new CreateBrandCommandHandler(_logger.Object, _unitOfWork.Object, _validator.Object, _publisher.Object);
 
             // We are testing the "Add" functionality of the BrandRepository. EFCore may return an error & fail to save
             _unitOfWork.Setup(unitOfWork => unitOfWork.BrandRepository.Add(It.IsAny<Brand>())).Returns(new Brand());
@@ -164,7 +166,7 @@ namespace mickion.tuckshops.warehouse.UnitTests.Application.Features.Brands
             _validator.Setup(v => v.ValidateAsync(command, _cancellationToken)).ReturnsAsync(new ValidationResult());
 
             // Act
-            CreateBrandResponse response = await _handler.Handle(command, _cancellationToken);
+            CreateBrandCommandResponse response = await _handler.Handle(command, _cancellationToken);
 
             // Assert
             // assert response
@@ -173,11 +175,11 @@ namespace mickion.tuckshops.warehouse.UnitTests.Application.Features.Brands
             Assert.Null(response.ErrorMessages);
 
             // assert data
-            Assert.NotNull(response.Data);
+            Assert.NotNull(response.Entity);
             Assert.Multiple(() =>
             {
-                Assert.Equal("01 Jan 0001 00:00:00", response.Data!.CreatedDate.ToString());
-                Assert.Equal("00000000-0000-0000-0000-000000000000", response.Data!.CreatedByUserId.ToString()); //in-valid id
+                Assert.Equal("01 Jan 0001 00:00:00", response.Entity!.CreatedDate.ToString());
+                Assert.Equal("00000000-0000-0000-0000-000000000000", response.Entity!.CreatedByUserId.ToString()); //in-valid id
             });
         }
         
@@ -186,7 +188,7 @@ namespace mickion.tuckshops.warehouse.UnitTests.Application.Features.Brands
         {
             // Arrange 
             CreateBrandCommand command = new("Sasko", "Sasko Building");
-            _handler = new CreateBrandCommandHandler(_logger.Object, _unitOfWork.Object, _validator.Object);
+            _handler = new CreateBrandCommandHandler(_logger.Object, _unitOfWork.Object, _validator.Object, _publisher.Object);
 
             // We are testing the "Add" functionality of the BrandRepository. EFCore may return an error & fail to save
             _unitOfWork.Setup(unitOfWork => unitOfWork.BrandRepository.Add(It.IsAny<Brand>()))

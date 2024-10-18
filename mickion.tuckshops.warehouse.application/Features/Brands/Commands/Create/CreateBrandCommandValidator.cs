@@ -4,10 +4,10 @@ using mickion.tuckshops.warehouse.domain.Contracts.Repositories.Base;
 
 namespace mickion.tuckshops.warehouse.application.Features.Brands.Commands.Create
 {
-    public class CreateBrandValidator: AbstractValidator<CreateBrandCommand>
+    public class CreateBrandCommandValidator: AbstractValidator<CreateBrandCommand>
     {
         private readonly IUnitOfWork _unitOfWork;
-        public CreateBrandValidator(IUnitOfWork unitOfWork)
+        public CreateBrandCommandValidator(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(IUnitOfWork));
 

@@ -5,6 +5,7 @@ using mickion.tuckshops.shared.application.Messages;
 using mickion.tuckshops.warehouse.application.Features.Brands.Commands.Create;
 using mickion.tuckshops.warehouse.application.Features.Brands.Queries.List;
 using Microsoft.AspNetCore.Mvc;
+using mickion.tuckshops.warehouse.domain.Entities;
 
 namespace mickion.tuckshops.warehouse.api.Controllers.v1
 {
@@ -19,16 +20,14 @@ namespace mickion.tuckshops.warehouse.api.Controllers.v1
         [Route("brands")]
         public async Task<IResult> GetAsync()
         {
-            var brand = await mediatr.Send(new ListBrandsQuery());
-            if (brand == null) return Results.NotFound();
-            return Results.Ok(brand);
+            var brands = await mediatr.Send(new ListBrandsQuery());
+            return (brands is not null) ? Results.Ok(brands) : Results.NotFound(ValidationMessage.BRANDS_NOTFOUND);            
         }
 
         [HttpPost]
         [Route("brand")]
         public async Task<IResult> PostAsync(string brandName, string brandAddress)
-        {
-            // TODO: FluentValidation
+        {            
             var brand = await mediatr.Send(new CreateBrandCommand(brandName, brandAddress));
             return (brand is not null) ? Results.Ok(brand) : Results.BadRequest(ErrorMessage.FAILED_TO_CREATE_BRAND); 
         }

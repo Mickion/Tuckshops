@@ -31,7 +31,7 @@ namespace mickion.tuckshops.warehouse.application
         /// <param name="services"></param>
         private static void RegisterFluentValidators(IServiceCollection services)
         {
-            services.AddScoped<IValidator<CreateBrandCommand>, CreateBrandValidator>();            
+            services.AddScoped<IValidator<CreateBrandCommand>, CreateBrandCommandValidator>();            
         }
 
         private static void RegisterApplicationServices(IServiceCollection services) 

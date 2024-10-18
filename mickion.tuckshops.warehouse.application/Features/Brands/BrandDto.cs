@@ -1,6 +1,4 @@
-﻿using mickion.tuckshops.warehouse.domain.Entities;
-
-public record CreateBrandResponseDto(Guid? Id,
+﻿public record BrandDto(Guid? Id,
                                   string Name,
                                   string Address,
                                   DateTime? CreatedDate,
