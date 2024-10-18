@@ -42,13 +42,13 @@ public class CreateBrandCommandHandler(
             }
             catch (Exception ex)
             {                
-                _logger.LogCritical("UnitOfWork or Publisher failed: "+ ex.Message);
+                _logger.LogCritical("UnitOfWork or Publisher failed: "+ ex.Message, ex);
                 return ResponseHelper<CreateBrandCommandResponse, BrandDto>.Error(MapHelper.BrandToDto(response)!, ex.Message);
             }
         }
         catch (Exception ex)
         {            
-            _logger.LogCritical("Fluent Validator failed: " + ex.Message);
+            _logger.LogCritical("Fluent Validator failed: " + ex.Message, ex);
             return ResponseHelper<CreateBrandCommandResponse, BrandDto>.Error(MapHelper.BrandToDto(response)!, ex.Message);
         }
 

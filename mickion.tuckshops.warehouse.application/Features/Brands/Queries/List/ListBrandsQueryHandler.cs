@@ -23,11 +23,11 @@ namespace mickion.tuckshops.warehouse.application.Features.Brands.Queries.List
             }
             catch (Exception ex)
             {
-                _logger.LogCritical("Fluent Validator failed: " + ex.Message);
-                return ResponseHelper<ListBrandsQueryResponse, IEnumerable<BrandDto>>.Error(MapHelper.BrandToDto(response!), ex.Message);
+                _logger.LogCritical("Fluent Validator failed: " + ex.Message, ex);
+                return ResponseHelper<ListBrandsQueryResponse, IEnumerable<BrandDto>>.Error(MapHelper.BrandToDto(response!)!, ex.Message);
             }
 
-            return ResponseHelper<ListBrandsQueryResponse, IEnumerable<BrandDto>>.Success(MapHelper.BrandToDto(response!));
+            return ResponseHelper<ListBrandsQueryResponse, IEnumerable<BrandDto>>.Success(MapHelper.BrandToDto(response)!);
         }
     }
 }

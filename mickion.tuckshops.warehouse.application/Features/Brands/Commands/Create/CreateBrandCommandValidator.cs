@@ -19,7 +19,8 @@ namespace mickion.tuckshops.warehouse.application.Features.Brands.Commands.Creat
             RuleFor(x => x.Address).NotEmpty().WithMessage(ValidationMessage.BRAND_ADDRESS_REQUIRED);
         }
 
-        private async Task<bool> BrandDoesNotExist(string name) =>await _unitOfWork.BrandRepository.FindAsync(x => x.Name == name) == null;
+        private async Task<bool> BrandDoesNotExist(string name) => 
+            await _unitOfWork.BrandRepository.FindAsync(brand => brand.Name.ToUpper() == name.ToUpper()) == null;
        
     }
 }

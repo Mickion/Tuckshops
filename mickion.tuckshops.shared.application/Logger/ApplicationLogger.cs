@@ -12,7 +12,7 @@ namespace mickion.tuckshops.shared.application.Logger
             Log.Logger = new LoggerConfiguration()
                 .WriteTo.Console()
                 .WriteTo.File(filename, rollingInterval: RollingInterval.Day, rollOnFileSizeLimit: true)
-                .MinimumLevel.Verbose()
+                .MinimumLevel.Information()
                 .MinimumLevel.Override("Microsoft.AspNetCore", LogEventLevel.Warning)
                 .MinimumLevel.Override("Microsoft.Extensions.Hosting", LogEventLevel.Information)
                 .MinimumLevel.Override("Microsoft.Hosting", LogEventLevel.Information)
