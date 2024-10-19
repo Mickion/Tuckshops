@@ -7,7 +7,7 @@ namespace mickion.tuckshops.warehouse.domain.Contracts.Repositories.Base
     /// <summary>
     /// Repositories access properties.
     /// </summary>
-    public interface IRepositoriesFactory
+    public interface IRepositoryFactory
     {
         IRepository<Brand> BrandRepository { get; }
         IRepository<Product> ProductRepository { get; }        

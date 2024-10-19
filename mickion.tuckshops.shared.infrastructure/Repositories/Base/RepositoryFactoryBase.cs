@@ -3,7 +3,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace mickion.tuckshops.shared.infrastructure.Repositories.Base
 {
-    public class RepositoriesFactoryBase
+    /// <summary>
+    /// You cannot instatiate an abstract class. 
+    /// Only use this class for inheritance
+    /// </summary>
+    public abstract class RepositoryFactoryBase
     {        
         private readonly Dictionary<Type, object> _repositories = [];
 
@@ -12,7 +16,7 @@ namespace mickion.tuckshops.shared.infrastructure.Repositories.Base
         /// </summary>
         /// <typeparam name="TEntity"></typeparam>
         /// <returns></returns>
-        public virtual IRepository<TEntity> GetRepository<TEntity>(DbContext dbContext) where TEntity : class
+        protected virtual IRepository<TEntity> GetRepository<TEntity>(DbContext dbContext) where TEntity : class
         {
             //Check if already new'd up the repo
             if (_repositories.ContainsKey(typeof(TEntity)))

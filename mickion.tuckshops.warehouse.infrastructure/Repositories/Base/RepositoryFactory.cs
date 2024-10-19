@@ -11,7 +11,7 @@ namespace mickion.tuckshops.warehouse.infrastructure.Repositories.Base
     /// Repositories factory
     /// </summary>
     /// <param name="dbContext"></param>
-    public class RepositoriesFactory(WarehouseDbContext dbContext) : RepositoriesFactoryBase, IRepositoriesFactory
+    public class RepositoryFactory(WarehouseDbContext dbContext) : RepositoryFactoryBase, IRepositoryFactory
     {        
         public IRepository<Brand> BrandRepository => GetRepository<Brand>(dbContext);
 

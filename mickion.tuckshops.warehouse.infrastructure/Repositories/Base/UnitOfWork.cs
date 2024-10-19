@@ -6,7 +6,7 @@ namespace mickion.tuckshops.warehouse.infrastructure.Repositories.Base
 {
     // Internal to Infrastructure
     // Outside world don't need to know the implemantation details
-    public class UnitOfWork(WarehouseDbContext dbContext): RepositoriesFactory(dbContext), IUnitOfWork
+    public class UnitOfWork(WarehouseDbContext dbContext): RepositoryFactory(dbContext), IUnitOfWork
     {
         private readonly WarehouseDbContext _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
 
