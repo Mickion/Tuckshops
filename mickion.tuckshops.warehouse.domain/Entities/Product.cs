@@ -1,12 +1,10 @@
-﻿using mickion.tuckshops.shared.domain.Entities;
+﻿using mickion.tuckshops.shared.domain.Contracts.Entities;
+using mickion.tuckshops.shared.domain.Entities;
 using System.ComponentModel.DataAnnotations;
 
 namespace mickion.tuckshops.warehouse.domain.Entities
 {
-    // TODO: Refactor as I go
-    // TODO: Normalize entities as I go
-    // TODO: Move to common dll
-    public class Product: BaseEntity
+    public class Product: BaseEntity, IEntity
     {
         [Required]
         public string Code { get; set; } = string.Empty; //TODO: Generate unique code

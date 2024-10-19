@@ -1,8 +1,9 @@
-﻿using mickion.tuckshops.shared.domain.Entities;
+﻿using mickion.tuckshops.shared.domain.Contracts.Entities;
+using mickion.tuckshops.shared.domain.Entities;
 
 namespace mickion.tuckshops.warehouse.domain.Entities
 {
-    public class Measurement: BaseEntity
+    public class Measurement: BaseEntity, IEntity
     {
         public double Size { get; set; } // 500 ml, 2.5kg etc
 

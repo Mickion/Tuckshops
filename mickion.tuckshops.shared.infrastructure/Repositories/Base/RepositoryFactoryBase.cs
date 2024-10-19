@@ -1,4 +1,5 @@
-﻿using mickion.tuckshops.shared.domain.Contracts.Repositories.Base;
+﻿using mickion.tuckshops.shared.domain.Contracts.Entities;
+using mickion.tuckshops.shared.domain.Contracts.Repositories.Base;
 using Microsoft.EntityFrameworkCore;
 
 namespace mickion.tuckshops.shared.infrastructure.Repositories.Base
@@ -16,7 +17,7 @@ namespace mickion.tuckshops.shared.infrastructure.Repositories.Base
         /// </summary>
         /// <typeparam name="TEntity"></typeparam>
         /// <returns></returns>
-        protected virtual IRepository<TEntity> GetRepository<TEntity>(DbContext dbContext) where TEntity : class
+        protected virtual IRepository<TEntity> GetRepository<TEntity>(DbContext dbContext) where TEntity : class, IEntity
         {
             //Check if already new'd up the repo
             if (_repositories.ContainsKey(typeof(TEntity)))

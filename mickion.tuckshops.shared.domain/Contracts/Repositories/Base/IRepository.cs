@@ -1,12 +1,14 @@
-﻿using System.Linq.Expressions;
+﻿using mickion.tuckshops.shared.domain.Contracts.Entities;
+using System.Linq.Expressions;
 
 namespace mickion.tuckshops.shared.domain.Contracts.Repositories.Base;
 
 /// <summary>
-/// Generic Repository to be used by all projects
+/// Generic Repository to be used by all projects.
+/// All entities must implement the IEntity interface.
 /// </summary>
 /// <typeparam name="TEntity"></typeparam>
-public interface IRepository<TEntity> where TEntity : class
+public interface IRepository<TEntity> where TEntity : class, IEntity
 {
     #region Get data methods
     IQueryable<TEntity> GetAll();

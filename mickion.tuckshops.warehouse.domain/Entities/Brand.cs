@@ -1,8 +1,9 @@
-﻿using mickion.tuckshops.shared.domain.Entities;
+﻿using mickion.tuckshops.shared.domain.Contracts.Entities;
+using mickion.tuckshops.shared.domain.Entities;
 
 namespace mickion.tuckshops.warehouse.domain.Entities
 {
-    public class Brand: BaseEntity
+    public class Brand: BaseEntity, IEntity
     {
         public string Name { get; set; } = string.Empty;
 

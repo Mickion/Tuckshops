@@ -1,8 +1,9 @@
-﻿using mickion.tuckshops.shared.domain.Entities;
+﻿using mickion.tuckshops.shared.domain.Contracts.Entities;
+using mickion.tuckshops.shared.domain.Entities;
 
 namespace mickion.tuckshops.warehouse.domain.Entities
 {
-    public class Quantity: BaseEntity
+    public class Quantity: BaseEntity, IEntity
     {
         public int StockOnHand { get; set; }
 
