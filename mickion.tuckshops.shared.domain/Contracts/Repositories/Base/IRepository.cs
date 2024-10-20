@@ -13,15 +13,15 @@ public interface IRepository<TEntity> where TEntity : class, IEntity
     #region Get data methods
     IQueryable<TEntity> GetAll(bool readOnly = false);
 
-    Task<IQueryable<TEntity>> GetAllAsync(bool readOnly = false);
+    Task<IQueryable<TEntity>> GetAllAsync(CancellationToken cancellationToken=default, bool readOnly = false);
 
     TEntity? Find(Guid id);
 
-    Task<TEntity?> FindAsync(Guid id);
+    Task<TEntity?> FindAsync(Guid id, CancellationToken cancellationToken = default);
     
     TEntity? Find(Expression<Func<TEntity, bool>> expression, bool readOnly = false);
 
-    Task<TEntity?> FindAsync(Expression<Func<TEntity, bool>> expression, bool readOnly = false);
+    Task<TEntity?> FindAsync(Expression<Func<TEntity, bool>> expression, CancellationToken cancellationToken = default, bool readOnly = false);
 
     IQueryable<TEntity?> Filter(Expression<Func<TEntity, bool>> expression, bool readOnly = false);
 
@@ -30,6 +30,7 @@ public interface IRepository<TEntity> where TEntity : class, IEntity
     #endregion
 
     #region Add,Delete,Edit Methods
+#warning Add async methods for these
     TEntity Add(TEntity entity);
 
     Task AddAsync(TEntity entity, CancellationToken cancellationToken);

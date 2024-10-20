@@ -17,8 +17,8 @@ namespace mickion.tuckshops.shared.infrastructure.Repositories.Base
         public IQueryable<TEntity> GetAll(bool readOnly = false)
             => readOnly ? _dbSet.AsNoTracking().AsQueryable() : _dbSet.AsQueryable();
 
-        public async Task<IQueryable<TEntity>> GetAllAsync(bool readOnly = false)
-            => readOnly ? (IQueryable<TEntity>)await _dbSet.AsNoTracking().ToListAsync() : (IQueryable<TEntity>)await _dbSet.ToListAsync();
+        public async Task<IQueryable<TEntity>> GetAllAsync(CancellationToken cancellationToken = default, bool readOnly = false)
+            => readOnly ? (IQueryable<TEntity>)await _dbSet.AsNoTracking().ToListAsync(cancellationToken) : (IQueryable<TEntity>)await _dbSet.ToListAsync(cancellationToken);
 
         /// <summary>
         /// Gets by primary key
@@ -27,7 +27,7 @@ namespace mickion.tuckshops.shared.infrastructure.Repositories.Base
         /// <returns></returns>
         public TEntity? Find(Guid id) => _dbSet.Find(id);
 
-        public async Task<TEntity?> FindAsync(Guid id) => await _dbSet.FindAsync(id);
+        public async Task<TEntity?> FindAsync(Guid id, CancellationToken cancellationToken = default) => await _dbSet.FindAsync(id, cancellationToken);
 
 #warning todo - add pagination
         /// <summary>
@@ -41,9 +41,9 @@ namespace mickion.tuckshops.shared.infrastructure.Repositories.Base
             expression == null ? throw new ArgumentNullException(nameof(expression))
             : readOnly ? _dbSet.AsNoTracking().FirstOrDefault(expression) : _dbSet.FirstOrDefault(expression);
 
-        public async Task<TEntity?> FindAsync(Expression<Func<TEntity, bool>> expression, bool readOnly = false) =>
+        public async Task<TEntity?> FindAsync(Expression<Func<TEntity, bool>> expression, CancellationToken cancellationToken = default, bool readOnly = false) =>
             expression == null ? throw new ArgumentNullException(nameof(expression)) 
-            : readOnly ? await _dbSet.AsNoTracking().FirstOrDefaultAsync(expression) : await _dbSet.FirstOrDefaultAsync(expression);
+            : readOnly ? await _dbSet.AsNoTracking().FirstOrDefaultAsync(expression, cancellationToken) : await _dbSet.FirstOrDefaultAsync(expression, cancellationToken);
 
         public IQueryable<TEntity?> Filter(Expression<Func<TEntity, bool>> expression, bool readOnly = false) =>
             expression == null ? throw new ArgumentNullException(nameof(expression)) 
