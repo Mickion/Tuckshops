@@ -11,19 +11,19 @@ namespace mickion.tuckshops.shared.domain.Contracts.Repositories.Base;
 public interface IRepository<TEntity> where TEntity : class, IEntity
 {
     #region Get data methods
-    IQueryable<TEntity> GetAll();
+    IQueryable<TEntity> GetAll(bool readOnly = false);
 
-    Task<IQueryable<TEntity>> GetAllAsync();
+    Task<IQueryable<TEntity>> GetAllAsync(bool readOnly = false);
 
     TEntity? Find(Guid id);
 
     Task<TEntity?> FindAsync(Guid id);
     
-    TEntity? Find(Expression<Func<TEntity, bool>> expression);
+    TEntity? Find(Expression<Func<TEntity, bool>> expression, bool readOnly = false);
 
-    Task<TEntity?> FindAsync(Expression<Func<TEntity, bool>> expression);
+    Task<TEntity?> FindAsync(Expression<Func<TEntity, bool>> expression, bool readOnly = false);
 
-    IQueryable<TEntity?> Filter(Expression<Func<TEntity, bool>> expression);
+    IQueryable<TEntity?> Filter(Expression<Func<TEntity, bool>> expression, bool readOnly = false);
 
     //Task<IQueryable<TEntity?>> FilterAsync(Expression<Func<TEntity, bool>> expression);
 

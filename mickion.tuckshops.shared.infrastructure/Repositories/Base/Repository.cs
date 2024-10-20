@@ -14,23 +14,40 @@ namespace mickion.tuckshops.shared.infrastructure.Repositories.Base
         #endregion
 
         #region Read data methods
-        public IQueryable<TEntity> GetAll() => _dbSet.AsQueryable();
+        public IQueryable<TEntity> GetAll(bool readOnly = false)
+            => readOnly ? _dbSet.AsNoTracking().AsQueryable() : _dbSet.AsQueryable();
 
-        public async Task<IQueryable<TEntity>> GetAllAsync() => (IQueryable<TEntity>)await _dbSet.ToListAsync();
+        public async Task<IQueryable<TEntity>> GetAllAsync(bool readOnly = false)
+            => readOnly ? (IQueryable<TEntity>)await _dbSet.AsNoTracking().ToListAsync() : (IQueryable<TEntity>)await _dbSet.ToListAsync();
 
+        /// <summary>
+        /// Gets by primary key
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public TEntity? Find(Guid id) => _dbSet.Find(id);
 
         public async Task<TEntity?> FindAsync(Guid id) => await _dbSet.FindAsync(id);
 
 #warning todo - add pagination
-        public TEntity? Find(Expression<Func<TEntity, bool>> expression) => 
-            expression == null ? throw new ArgumentNullException(nameof(expression)) : _dbSet.FirstOrDefault(expression);       
+        /// <summary>
+        /// Gets by lamba condition
+        /// </summary>
+        /// <param name="expression"></param>
+        /// <param name="readOnly"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        public TEntity? Find(Expression<Func<TEntity, bool>> expression, bool readOnly = false) =>
+            expression == null ? throw new ArgumentNullException(nameof(expression))
+            : readOnly ? _dbSet.AsNoTracking().FirstOrDefault(expression) : _dbSet.FirstOrDefault(expression);
 
-        public async Task<TEntity?> FindAsync(Expression<Func<TEntity, bool>> expression) =>
-            expression == null ? throw new ArgumentNullException(nameof(expression)) : await _dbSet.FirstOrDefaultAsync(expression);
+        public async Task<TEntity?> FindAsync(Expression<Func<TEntity, bool>> expression, bool readOnly = false) =>
+            expression == null ? throw new ArgumentNullException(nameof(expression)) 
+            : readOnly ? await _dbSet.AsNoTracking().FirstOrDefaultAsync(expression) : await _dbSet.FirstOrDefaultAsync(expression);
 
-        public IQueryable<TEntity?> Filter(Expression<Func<TEntity, bool>> expression) =>
-            expression == null ? throw new ArgumentNullException(nameof(expression)) : _dbSet.AsQueryable().Where(expression);        
+        public IQueryable<TEntity?> Filter(Expression<Func<TEntity, bool>> expression, bool readOnly = false) =>
+            expression == null ? throw new ArgumentNullException(nameof(expression)) 
+            : readOnly ? _dbSet.AsNoTracking().AsQueryable().Where(expression) : _dbSet.AsNoTracking().AsQueryable().Where(expression);
 
         //public async Task<IQueryable<TEntity?>> FindAsync(Expression<Func<IQueryable<TEntity?>, bool>> expression) =>
         //    expression == null ? throw new ArgumentNullException(nameof(expression)) : await _dbSet.AllAsync().Where(expression);
@@ -45,7 +62,7 @@ namespace mickion.tuckshops.shared.infrastructure.Repositories.Base
         }
 
         public async Task AddAsync(TEntity entity, CancellationToken cancellationToken) => await _dbSet.AddAsync(entity, cancellationToken);
-        
+
         public void Update(TEntity entity) => _dbSet.Update(entity);
 
         public void Delete(TEntity entity) => _dbSet.Remove(entity);
