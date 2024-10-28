@@ -10,7 +10,6 @@
     <Folder Include="Features\Brands\Commands\Delete\" />
     <Folder Include="Features\Brands\Commands\Update\" />
     <Folder Include="Features\Suppliers\" />
-    <Folder Include="Features\Product\Commands\Create\" />
     <Folder Include="Features\Product\Commands\Delete\" />
     <Folder Include="Features\Product\Commands\Update\" />
     <Folder Include="Features\Product\Queries\" />
