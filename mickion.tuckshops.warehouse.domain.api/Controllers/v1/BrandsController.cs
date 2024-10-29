@@ -10,8 +10,8 @@ namespace mickion.tuckshops.warehouse.api.Controllers.v1
 {
     [ApiController]
     [ApiVersion("1.0")]
-    [Route("api/v{version:apiVersion}/")] // TODO: Remove from payload??
-    //[Route("api/v{version:apiVersion}/[Controller]")]
+    [Route("api/v{version:apiVersion}/")] 
+    
     public class BrandsController (ISender mediatr) : ControllerBase
     {
         

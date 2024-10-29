@@ -13,6 +13,6 @@ namespace mickion.tuckshops.warehouse.domain.Entities
         //public string BrandProvider { get; set; } = string.Empty;
 
         //A brand can have many products, i.e. Apple has iPhones, iPads etc..
-        public ICollection<Product> Products { get; set; } = [];
+        public IEnumerable<Product> Products { get; set; } = [];
     }
 }

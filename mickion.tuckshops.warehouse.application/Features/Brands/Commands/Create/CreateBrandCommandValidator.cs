@@ -20,7 +20,7 @@ namespace mickion.tuckshops.warehouse.application.Features.Brands.Commands.Creat
         }
 
         private async Task<bool> BrandNotExist(string name) => 
-            await _unitOfWork.BrandRepository.FindAsync(brand => brand.Name.Equals(name, StringComparison.CurrentCultureIgnoreCase)) == null;
+            await _unitOfWork.BrandRepository.FindAsync(brand => brand.Name.ToLower() ==name.ToLower()) == null;
        
     }
 }

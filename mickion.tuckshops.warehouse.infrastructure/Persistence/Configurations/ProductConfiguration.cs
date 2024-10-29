@@ -38,11 +38,11 @@ namespace mickion.tuckshops.warehouse.infrastructure.Persistence.Configurations
                 .WithMany(brd => brd.Products)
                 .HasForeignKey(prd => prd.BrandId).HasConstraintName("FK_Brand_Product");
 
-            //One-to-Many Relationship
-            builder
-                .HasOne<Measurement>(prd => prd.Measurements)
-                .WithMany(ms => ms.Products)
-                .HasForeignKey(prd => prd.MeasurementsId).HasConstraintName("FK_Measurement_Product");
+            ////One-to-Many Relationship
+            //builder
+            //    .HasOne<Measurement>(prd => prd.Measurements)
+            //    .WithMany(ms => ms.Products)
+            //    .HasForeignKey(prd => prd.MeasurementsId).HasConstraintName("FK_Measurement_Product");
         }
 
         private static void ConfigureProperties(EntityTypeBuilder<Product> builder)

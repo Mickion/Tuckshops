@@ -29,19 +29,15 @@ namespace mickion.tuckshops.warehouse.application.Features.Product.Commands.Crea
                 .Must((x, cancellation) => IsValidExpiryDate(x.UseByDateTime))
                 .WithMessage(ValidationMessage.PRODUCT_USEBY_DATETIME_INVALID);
 
-            RuleFor(x => x.Brand).NotNull()
+            RuleFor(x => x.ProductBrandName).NotEmpty()
                 .WithMessage(ValidationMessage.PRODUCT_BRAND_REQUIRED);
-            //RuleFor(x => x.Brand.Name)
-            //    .MustAsync((x, cancellation) => BrandExist(x))
-            //    .WithMessage(ValidationMessage.BRAND_NOTFOUND);
 
-            RuleFor(x => x.Quantity).NotNull().WithMessage(ValidationMessage.PRODUCT_QUANTITY_REQUIRED);
+            //RuleFor(x => x.StockOnHand).NotNull().WithMessage(ValidationMessage.PRODUCT_QUANTITY_REQUIRED);
             RuleFor(x => x.Measurements).NotNull().WithMessage(ValidationMessage.PRODUCT_MEASUREMENT_REQUIRED);
         }
 
         private async Task<bool> ProductNotExist(CreateProductCommand product) =>
-            await _unitOfWork.ProductRepository.FindAsync(x => x.Name.Equals(product.Name, StringComparison.CurrentCultureIgnoreCase) 
-            && x.Color.Equals(product.Color, StringComparison.CurrentCultureIgnoreCase)) == null;
+            await _unitOfWork.ProductRepository.FindAsync(x => x.Name.ToLower() == product.Name.ToLower() && x.Color.ToLower() ==product.Color.ToLower()) == null;
 
         private static bool IsValidExpiryDate(DateTime expirydate) => expirydate > DateTime.UtcNow;
 

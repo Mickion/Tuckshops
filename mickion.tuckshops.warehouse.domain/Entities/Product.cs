@@ -23,20 +23,22 @@ namespace mickion.tuckshops.warehouse.domain.Entities
         [Required]
         public DateTime UseByDateTime { get; set; } = default;
 
-        //One-to-Many Relationship
+        
         [Required]
         public Guid BrandId { get; set; } // ForeignKey        
-        public Brand Brand { get; set; } = new Brand(); // Navigation property
+        public Brand? Brand { get; set; } // Navigation property
 
-        //One-to-Many Relationship
-#warning Should have ProductMeasurement Table... 1lt coca cola, 2 litre coca cola etc...
-        [Required]
-        public Guid MeasurementsId { get; set; } // ForeignKey          
-        public Measurement Measurements { get; set; } = new Measurement(); // Navigation property
+                
+        /// <summary>
+        /// A product can have many various sizes, 2litre, 3litre, 4litre
+        /// </summary>
+        public IEnumerable<Measurement>? Measurements { get; set; }
 
+
+#warning Re-think this
         //One-to-One Relationship
         [Required]
-        public Quantity Quantity { get; set; } = new Quantity(); // Navigation property
+        public Quantity? Quantity { get; set; } // Navigation property
 
     }
 }

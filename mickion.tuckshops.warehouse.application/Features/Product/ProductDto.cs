@@ -8,7 +8,7 @@ public record ProductDto(
     DateTime ExpiryDateTime,
     DateTime UseByDateTime,
     BrandDto Brand,
-    Measurement Measurements,
+    IEnumerable<Measurement> Measurements,
     Quantity Quantity,
     DateTime? CreatedDate,
     Guid? CreatedByUserId,

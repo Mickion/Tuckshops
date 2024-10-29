@@ -6,8 +6,6 @@ using mickion.tuckshops.warehouse.application.Features.Product.Events;
 using mickion.tuckshops.warehouse.domain.Contracts.Repositories.Base;
 using mickion.tuckshops.warehouse.domain.Entities;
 using Microsoft.Extensions.Logging;
-using System.Diagnostics.Metrics;
-using System.Threading;
 
 namespace mickion.tuckshops.warehouse.application.Features.Product.Commands.Create
 {
@@ -52,9 +50,9 @@ namespace mickion.tuckshops.warehouse.application.Features.Product.Commands.Crea
             response.Barcode = request.Barcode;
             response.ExpiryDateTime = request.ExpiryDateTime;
             response.UseByDateTime = request.UseByDateTime;
-            response.Brand = await HandleProductBrandAsync(request.Brand, cancellationToken).ConfigureAwait(false);
+            response.Brand = await HandleProductBrandAsync(request.ProductBrandName, request.ProductBrandAddress!, cancellationToken).ConfigureAwait(false);
             response.Measurements = await HandleProductMeasurementAsync(request.Measurements, cancellationToken).ConfigureAwait(false);
-            response.Quantity = await HandleProductQuantityAsync(request.Quantity, response.Id, cancellationToken).ConfigureAwait(false);
+            response.Quantity = await HandleProductQuantityAsync(response.Id, request.StockOnHand, request.StockOnOrder, cancellationToken).ConfigureAwait(false);
 
             response = await _unitOfWork.ProductRepository.AddAsync(response, cancellationToken).ConfigureAwait(false);          
             await _unitOfWork.CommitChangesAsync(cancellationToken).ConfigureAwait(false);
@@ -72,14 +70,13 @@ namespace mickion.tuckshops.warehouse.application.Features.Product.Commands.Crea
         /// <param name="productBrand"></param>
         /// <param name="cancellationToken"></param>
         /// <returns>Details of the newly created Product Brand</returns>
-        private async Task<Brand> HandleProductBrandAsync(Brand productBrand, CancellationToken cancellationToken)
+        private async Task<Brand> HandleProductBrandAsync(string brandName, string brandAddress, CancellationToken cancellationToken)
         {            
-            var brand =
-                await _unitOfWork.BrandRepository.FindAsync(x => x.Name.Equals(productBrand.Name, StringComparison.InvariantCultureIgnoreCase));
+            var brand = await _unitOfWork.BrandRepository.FindAsync(x => x.Name.ToLower() == brandName.ToLower());
 
             if (brand is null)
                 // If brand dont exists, create one
-                brand = await _unitOfWork.BrandRepository.AddAsync(new() { Name = productBrand.Name, Address = productBrand.Address }, cancellationToken);
+                brand = await _unitOfWork.BrandRepository.AddAsync(new() { Name = brandName, Address = brandAddress }, cancellationToken);
             
             return brand;
         }
@@ -90,17 +87,22 @@ namespace mickion.tuckshops.warehouse.application.Features.Product.Commands.Crea
         /// <param name="productMeasurement"></param>
         /// <param name="cancellationToken"></param>
         /// <returns>Details of the newly created Product Measurement</returns>
-        private async Task<Measurement> HandleProductMeasurementAsync(Measurement productMeasurement, CancellationToken cancellationToken)
+        private async Task<IEnumerable<Measurement>> HandleProductMeasurementAsync(IEnumerable<MeasurementDto> productMeasurement, CancellationToken cancellationToken)
         {
-            var measurement =
-                await _unitOfWork.MeasurementRepository.FindAsync(x => x.Size == productMeasurement.Size 
-                && x.Type.Equals(productMeasurement.Type, StringComparison.CurrentCultureIgnoreCase), cancellationToken);
+            List<Measurement> measurements = [];
 
-            if (measurement is null)
-                // If measurement match dont exists, create one
-                measurement = await _unitOfWork.MeasurementRepository.AddAsync(new(){Size = productMeasurement.Size, Type = productMeasurement.Type}, cancellationToken);
+            foreach (var measurementItem in productMeasurement) {
+                var measurement =
+                    await _unitOfWork.MeasurementRepository.FindAsync(x => x.Size == measurementItem.Size && x.Type.ToLower() == measurementItem.Type.ToLower(), cancellationToken);
 
-            return measurement;
+                if (measurement is null)
+                    // If measurement match dont exists, create one
+                    measurement = await _unitOfWork.MeasurementRepository.AddAsync(new() { Size = measurementItem.Size, Type = measurementItem.Type }, cancellationToken);
+
+                measurements.Add(measurement);
+            }
+
+            return measurements;
         }
 
         /// <summary>
@@ -110,14 +112,14 @@ namespace mickion.tuckshops.warehouse.application.Features.Product.Commands.Crea
         /// <param name="productId"></param>
         /// <param name="cancellationToken"></param>
         /// <returns>Details of the newly created Product Quantity</returns>
-        private async Task<Quantity> HandleProductQuantityAsync(Quantity productQty, Guid productId, CancellationToken cancellationToken)
+        private async Task<Quantity> HandleProductQuantityAsync(Guid productId, int stockOnHand, int stockOnOrder, CancellationToken cancellationToken)
         {
             var productQuantity =
                 await _unitOfWork.QuantityRepository.FindAsync(x => x.ProductId == productId, cancellationToken);
 
             if (productQuantity is null)
                 // If measurement match dont exists, create one
-                productQuantity = await _unitOfWork.QuantityRepository.AddAsync(new() { ProductId= productId, StockOnHand = productQty.StockOnHand, StockOnOrder = productQty.StockOnOrder}, cancellationToken);
+                productQuantity = await _unitOfWork.QuantityRepository.AddAsync(new() { ProductId= productId, StockOnHand = stockOnHand, StockOnOrder = stockOnOrder}, cancellationToken);
 
             return productQuantity;
         }

@@ -11,6 +11,8 @@ namespace mickion.tuckshops.warehouse.application.Extensions
     {
         internal static BrandDto ToBrandDto(this Brand brand)
         {
+            if (brand == null) return null;
+
             return new(
                 brand.Id,
                 brand.Name,

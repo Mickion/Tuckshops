@@ -6,6 +6,8 @@ namespace mickion.tuckshops.warehouse.application.Extensions
     {
         internal static ProductDto ToProductDto(this Product product)
         {
+            if (product is null) return null;
+
             return new(
                 product.Id,
                 product.Name,

@@ -29,7 +29,7 @@ namespace mickion.tuckshops.shared.application.Exceptions.Handlers
             var problemDetails = new ProblemDetails
             {
                 Status = statusCode,
-                Title = "Server error"
+                Title = exception.Message
             };
 
             httpContext.Response.StatusCode = problemDetails.Status.Value;

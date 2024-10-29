@@ -9,9 +9,11 @@ public record CreateProductCommand(
     string Barcode,
     DateTime ExpiryDateTime,
     DateTime UseByDateTime,
-    Brand Brand,
-    Measurement Measurements,
-    Quantity Quantity
+    string ProductBrandName,
+    string? ProductBrandAddress,    
+    IEnumerable<MeasurementDto> Measurements,
+    int StockOnHand,
+    int StockOnOrder
 ) : IRequest<CreateProductCommandResponse>;
 
 #warning Create Brand, Measurement & Quantity DTO's
