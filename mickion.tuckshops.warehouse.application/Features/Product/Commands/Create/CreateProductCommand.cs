@@ -9,9 +9,9 @@ public record CreateProductCommand(
     string Barcode,
     DateTime ExpiryDateTime,
     DateTime UseByDateTime,
-    BrandDto Brand,
+    Brand Brand,
     Measurement Measurements,
     Quantity Quantity
 ) : IRequest<CreateProductCommandResponse>;
 
-#warning Create Measurement & Quantity DTO's
+#warning Create Brand, Measurement & Quantity DTO's

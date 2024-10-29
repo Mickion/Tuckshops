@@ -14,7 +14,8 @@ namespace mickion.tuckshops.warehouse.application.Services.Order
 
             // Get Available quantity on the warehouse
             // If 0 or certain amount, place and order with the brand/supplier
-#warning refactor order type 
+
+#warning refactor and use Interface instead of Enums for Product Type
             if (orderType == OrderType.PilotOrder) 
             {
                 Console.WriteLine("Get number of registered stores");

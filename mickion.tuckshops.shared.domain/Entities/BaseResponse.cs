@@ -8,6 +8,6 @@ namespace mickion.tuckshops.shared.domain.Entities
 
         public List<ValidationFailure>? ErrorMessages { get; set; } = null;
 
-        public TEntityDto? Entity { get; set; } = default;
+        public TEntityDto? Results { get; set; } = default;
     }
 }

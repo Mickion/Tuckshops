@@ -33,7 +33,7 @@ public interface IRepository<TEntity> where TEntity : class, IEntity
 #warning Add async methods for these
     TEntity Add(TEntity entity);
 
-    Task AddAsync(TEntity entity, CancellationToken cancellationToken);
+    Task<TEntity> AddAsync(TEntity entity, CancellationToken cancellationToken);
 
     void Update(TEntity entity);
 

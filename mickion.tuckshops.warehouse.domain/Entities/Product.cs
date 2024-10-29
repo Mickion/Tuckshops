@@ -29,6 +29,7 @@ namespace mickion.tuckshops.warehouse.domain.Entities
         public Brand Brand { get; set; } = new Brand(); // Navigation property
 
         //One-to-Many Relationship
+#warning Should have ProductMeasurement Table... 1lt coca cola, 2 litre coca cola etc...
         [Required]
         public Guid MeasurementsId { get; set; } // ForeignKey          
         public Measurement Measurements { get; set; } = new Measurement(); // Navigation property

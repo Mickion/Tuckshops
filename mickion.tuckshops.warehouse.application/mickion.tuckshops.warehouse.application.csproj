@@ -9,15 +9,16 @@
   <ItemGroup>
     <Folder Include="Features\Brands\Commands\Delete\" />
     <Folder Include="Features\Brands\Commands\Update\" />
+    <Folder Include="Features\Product\Queries\Get\" />
     <Folder Include="Features\Suppliers\" />
     <Folder Include="Features\Product\Commands\Delete\" />
     <Folder Include="Features\Product\Commands\Update\" />
-    <Folder Include="Features\Product\Queries\" />
     <Folder Include="Features\StockOrders\Events\" />
     <Folder Include="Features\StockOrders\Commands\" />
     <Folder Include="Features\StockOrders\Queries\" />
     <Folder Include="Features\StockOut\" />
     <Folder Include="Features\StockIn\" />
+    <Folder Include="Helpers\" />
   </ItemGroup>
 
   <ItemGroup>

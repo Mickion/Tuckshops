@@ -14,6 +14,7 @@ namespace mickion.tuckshops.warehouse.application.Features.Product.Events
         {
             _logger.LogInformation($"Product Id {notification.ProductId} has been created. Place product in-take orders.");
 #warning todo - for a new product, we want to test how much it sells so we won't order too much
+
             await _orderService.OrderAsync(notification.ProductId, orderType: domain.Common.Enums.OrderType.PilotOrder);
 
         }

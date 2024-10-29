@@ -1,11 +1,10 @@
 ﻿
 using MediatR;
 using Asp.Versioning;
-using mickion.tuckshops.shared.application.Messages;
-using mickion.tuckshops.warehouse.application.Features.Brands.Commands.Create;
-using mickion.tuckshops.warehouse.application.Features.Brands.Queries.List;
 using Microsoft.AspNetCore.Mvc;
-using mickion.tuckshops.warehouse.domain.Entities;
+using mickion.tuckshops.shared.application.Messages;
+using mickion.tuckshops.warehouse.application.Features.Brands.Queries.List;
+using mickion.tuckshops.warehouse.application.Features.Brands.Commands.Create;
 
 namespace mickion.tuckshops.warehouse.api.Controllers.v1
 {
@@ -13,7 +12,7 @@ namespace mickion.tuckshops.warehouse.api.Controllers.v1
     [ApiVersion("1.0")]
     [Route("api/v{version:apiVersion}/")] // TODO: Remove from payload??
     //[Route("api/v{version:apiVersion}/[Controller]")]
-    public class BrandController (ISender mediatr) : ControllerBase
+    public class BrandsController (ISender mediatr) : ControllerBase
     {
         
         [HttpGet]
@@ -25,7 +24,7 @@ namespace mickion.tuckshops.warehouse.api.Controllers.v1
         }
 
         [HttpPost]
-        [Route("brand")]
+        [Route("brands")]
         public async Task<IResult> PostAsync(string brandName, string brandAddress)
         {            
             var brand = await mediatr.Send(new CreateBrandCommand(brandName, brandAddress));

@@ -7,10 +7,10 @@ namespace mickion.tuckshops.warehouse.infrastructure.Persistence.Configurations
     // TODO: ref article EF Core HasForeignKey
     // https://www.learnentityframeworkcore.com/configuration/fluent-api/hasforeignkey-method
 
-    // One-to-One Relationships using Fluent API in Entity Framework Core
+    // One-to-One Relationships using Fluent API in Results Framework Core
     // https://www.entityframeworktutorial.net/efcore/configure-one-to-one-relationship-using-fluent-api-in-ef-core.aspx
 
-    // One-to-Many Relationships using Fluent API in Entity Framework Core
+    // One-to-Many Relationships using Fluent API in Results Framework Core
     // https://www.entityframeworktutorial.net/efcore/configure-one-to-many-relationship-using-fluent-api-in-ef-core.aspx
     // ie. iPhone is a product && Apple is a brand. Apple sells many products
     public class ProductConfiguration : BaseEntityConfiguration<Product>, IEntityTypeConfiguration<Product>

@@ -10,5 +10,10 @@
         public const string FAILED_TO_RETRIEVED_BRAND = $"{FAILURE_MSG}. There are no brands currently on the database.";
         #endregion
 
+
+        #region Product feature messages
+        public const string FAILED_TO_CREATE_PRODUCT = $"{FAILURE_MSG} Failed to create the specified brand.";
+        public const string FAILED_TO_RETRIEVED_PRODUCT = $"{FAILURE_MSG}. There are no brands currently on the database.";
+        #endregion
     }
 }

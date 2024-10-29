@@ -20,7 +20,7 @@ namespace mickion.tuckshops.shared.application.Helpers.Responses.Handlers
                     ErrorCode = ErrorMessage.FAILURE_CODE,
                     //PropertyName = typeof(TEntityDto).ToString()                    
                 }],
-                Entity = responseDto,
+                Results = responseDto,
             };
        
 
@@ -29,7 +29,7 @@ namespace mickion.tuckshops.shared.application.Helpers.Responses.Handlers
              {
                 IsSuccess = false,
                 ErrorMessages = [.. validationFailures!],
-                Entity = responseDto,
+                Results = responseDto,
             };
 
         public static THandlerResponse Success(TEntityDto responseDto) =>
@@ -37,7 +37,7 @@ namespace mickion.tuckshops.shared.application.Helpers.Responses.Handlers
              {
                  IsSuccess = true,
                  ErrorMessages = null,
-                 Entity = responseDto,
+                 Results = responseDto,
              };
     }
 }

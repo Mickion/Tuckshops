@@ -13,7 +13,7 @@ namespace mickion.tuckshops.warehouse.application.Features.Product.Commands.Crea
 
             RuleFor(x => x.Name).NotEmpty()
                 .WithMessage(ValidationMessage.PRODUCT_NAME_REQUIRED);
-            RuleFor(x => x.Name)
+            RuleFor(x => x)
                 .MustAsync((x, cancellation) => ProductNotExist(x))
                 .WithMessage(ValidationMessage.PRODUCT_ALREADY_EXISTS);
 
@@ -39,8 +39,9 @@ namespace mickion.tuckshops.warehouse.application.Features.Product.Commands.Crea
             RuleFor(x => x.Measurements).NotNull().WithMessage(ValidationMessage.PRODUCT_MEASUREMENT_REQUIRED);
         }
 
-        private async Task<bool> ProductNotExist(string name) =>
-            await _unitOfWork.ProductRepository.FindAsync(product => product.Name.Equals(name, StringComparison.CurrentCultureIgnoreCase)) == null;
+        private async Task<bool> ProductNotExist(CreateProductCommand product) =>
+            await _unitOfWork.ProductRepository.FindAsync(x => x.Name.Equals(product.Name, StringComparison.CurrentCultureIgnoreCase) 
+            && x.Color.Equals(product.Color, StringComparison.CurrentCultureIgnoreCase)) == null;
 
         private static bool IsValidExpiryDate(DateTime expirydate) => expirydate > DateTime.UtcNow;
 

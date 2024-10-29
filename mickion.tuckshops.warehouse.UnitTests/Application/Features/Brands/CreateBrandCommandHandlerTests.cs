@@ -86,8 +86,8 @@ namespace mickion.tuckshops.warehouse.UnitTests.Application.Features.Brands
             // Assert
             Assert.False(response.IsSuccess);
             Assert.NotEmpty(response.ErrorMessages!);
-            Assert.Equal("01 Jan 0001 00:00:00", response.Entity!.CreatedDate.ToString());
-            Assert.True(Guid.TryParse(response.Entity!.CreatedByUserId.ToString(), out _));
+            Assert.Equal("01 Jan 0001 00:00:00", response.Results!.CreatedDate.ToString());
+            Assert.True(Guid.TryParse(response.Results!.CreatedByUserId.ToString(), out _));
         }
 
         [Fact]
@@ -109,8 +109,8 @@ namespace mickion.tuckshops.warehouse.UnitTests.Application.Features.Brands
             // Assert
             Assert.False(response.IsSuccess);
             Assert.NotEmpty(response.ErrorMessages!);
-            Assert.Equal("01 Jan 0001 00:00:00", response.Entity!.CreatedDate.ToString());
-            Assert.True(Guid.TryParse(response.Entity!.CreatedByUserId.ToString(), out _));
+            Assert.Equal("01 Jan 0001 00:00:00", response.Results!.CreatedDate.ToString());
+            Assert.True(Guid.TryParse(response.Results!.CreatedByUserId.ToString(), out _));
         }
 
         [Fact]
@@ -141,15 +141,15 @@ namespace mickion.tuckshops.warehouse.UnitTests.Application.Features.Brands
             Assert.Null(response.ErrorMessages);
 
             // assert data
-            Assert.NotNull(response.Entity);
+            Assert.NotNull(response.Results);
             Assert.Multiple(() =>
             {                
-                Assert.Equal(command.Name, response.Entity.Name);
-                Assert.Equal(command.Address, response.Entity.Address);
-                Assert.NotNull(response.Entity.Id);
-                Assert.NotNull(response.Entity.CreatedDate);
-                Assert.NotNull(response.Entity.CreatedByUserId);
-                Assert.True(Guid.TryParse(response.Entity!.CreatedByUserId.ToString(), out _)); //valid id                
+                Assert.Equal(command.Name, response.Results.Name);
+                Assert.Equal(command.Address, response.Results.Address);
+                Assert.NotNull(response.Results.Id);
+                Assert.NotNull(response.Results.CreatedDate);
+                Assert.NotNull(response.Results.CreatedByUserId);
+                Assert.True(Guid.TryParse(response.Results!.CreatedByUserId.ToString(), out _)); //valid id                
             });
         }
 
@@ -175,11 +175,11 @@ namespace mickion.tuckshops.warehouse.UnitTests.Application.Features.Brands
             Assert.Null(response.ErrorMessages);
 
             // assert data
-            Assert.NotNull(response.Entity);
+            Assert.NotNull(response.Results);
             Assert.Multiple(() =>
             {
-                Assert.Equal("01 Jan 0001 00:00:00", response.Entity!.CreatedDate.ToString());
-                Assert.Equal("00000000-0000-0000-0000-000000000000", response.Entity!.CreatedByUserId.ToString()); //in-valid id
+                Assert.Equal("01 Jan 0001 00:00:00", response.Results!.CreatedDate.ToString());
+                Assert.Equal("00000000-0000-0000-0000-000000000000", response.Results!.CreatedByUserId.ToString()); //in-valid id
             });
         }
         

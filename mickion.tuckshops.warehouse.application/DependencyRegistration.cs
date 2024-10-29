@@ -1,6 +1,7 @@
 ﻿
 using FluentValidation;
 using mickion.tuckshops.warehouse.application.Features.Brands.Commands.Create;
+using mickion.tuckshops.warehouse.application.Features.Product.Commands.Create;
 using mickion.tuckshops.warehouse.application.Services.Order;
 using mickion.tuckshops.warehouse.domain.Contracts.Services;
 using Microsoft.Extensions.DependencyInjection;
@@ -32,6 +33,7 @@ namespace mickion.tuckshops.warehouse.application
         private static void RegisterFluentValidators(IServiceCollection services)
         {
             services.AddScoped<IValidator<CreateBrandCommand>, CreateBrandCommandValidator>();            
+            services.AddScoped<IValidator<CreateProductCommand>, CreateProductCommandValidator>();            
         }
 
         private static void RegisterApplicationServices(IServiceCollection services) 

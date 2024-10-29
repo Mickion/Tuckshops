@@ -61,7 +61,11 @@ namespace mickion.tuckshops.shared.infrastructure.Repositories.Base
             return entity;
         }
 
-        public async Task AddAsync(TEntity entity, CancellationToken cancellationToken) => await _dbSet.AddAsync(entity, cancellationToken);
+        public async Task<TEntity> AddAsync(TEntity entity, CancellationToken cancellationToken) 
+        {
+            await _dbSet.AddAsync(entity, cancellationToken);
+            return entity;
+        }
 
         public void Update(TEntity entity) => _dbSet.Update(entity);
 

@@ -1,6 +1,7 @@
 ﻿
 using Asp.Versioning;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 
 
 namespace mickion.tuckshops.shared.api.DependencyInjections
@@ -19,11 +20,12 @@ namespace mickion.tuckshops.shared.api.DependencyInjections
 
                 //This says how the API version should be read from the client's request, 3 options are enabled 1.Querystring, 2.Header, 3.MediaType. 
                 //"api-version", "X-Version" and "ver" are parameter name to be set with version number in client before request the endpoints.
-                option.ApiVersionReader = ApiVersionReader.Combine(
-                    new QueryStringApiVersionReader("api-version"),
-                    new HeaderApiVersionReader("X-Version"),
-                    new MediaTypeApiVersionReader("ver")); 
-                                                           
+                //option.ApiVersionReader = ApiVersionReader.Combine(
+                //    new QueryStringApiVersionReader("api-version"),
+                //    new HeaderApiVersionReader("X-Version"),
+                //    new MediaTypeApiVersionReader("ver")); 
+                option.ApiVersionReader = new UrlSegmentApiVersionReader();
+
             }).AddApiExplorer(options => {
                 options.GroupNameFormat = "'v'VVV"; //The say our format of our version number “‘v’major[.minor][-status]”
                 options.SubstituteApiVersionInUrl = true; //This will help us to resolve the ambiguity when there is a routing conflict due to routing template one or more end points are same.
