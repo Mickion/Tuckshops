@@ -6,7 +6,7 @@ namespace mickion.tuckshops.warehouse.application.Features.Product.Commands.Crea
 public record CreateProductCommand(
     string Name,
     string Color,
-    string Barcode,
+    string Description,
     DateTime ExpiryDateTime,
     DateTime UseByDateTime,
     string ProductBrandName,

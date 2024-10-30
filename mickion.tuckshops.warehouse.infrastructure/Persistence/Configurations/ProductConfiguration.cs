@@ -28,15 +28,15 @@ namespace mickion.tuckshops.warehouse.infrastructure.Persistence.Configurations
             builder.HasKey("Id");
 
             //One-to-One Relationship
-            builder
-                .HasOne<Quantity>(qty => qty.Quantity).WithOne(pr => pr.Product).HasForeignKey<Quantity>(qty => qty.ProductId)
-                .HasConstraintName("FK_Quantity_Product");
+            //builder
+            //    .HasOne<Quantity>(qty => qty.Quantity).WithOne(pr => pr.Product).HasForeignKey<Quantity>(qty => qty.ProductId)
+            //    .HasConstraintName("FK_Quantity_Product");
 
-            //One-to-Many Relationship
-            builder
-                .HasOne<Brand>(prd => prd.Brand)
-                .WithMany(brd => brd.Products)
-                .HasForeignKey(prd => prd.BrandId).HasConstraintName("FK_Brand_Product");
+            ////One-to-Many Relationship
+            //builder
+            //    .HasOne<Brand>(prd => prd.Brand)
+            //    .WithMany(brd => brd.Products)
+            //    .HasForeignKey(prd => prd.BrandId).HasConstraintName("FK_Brand_Product");
 
             ////One-to-Many Relationship
             //builder

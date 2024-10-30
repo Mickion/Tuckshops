@@ -5,11 +5,25 @@ namespace mickion.tuckshops.warehouse.domain.Entities
 {
     public class Measurement: BaseEntity, IEntity
     {
-        public double Size { get; set; } // 500 ml, 2.5kg etc
+        /// <summary>
+        /// Gets or sets 500 ml, 2.5kg etc
+        /// </summary>
+        public double Size { get; set; }
 
-        public string Type { get; set; } = string.Empty; // kg, mg, litre
+        /// <summary>
+        /// Gets or sets kg, mg, litre
+        /// </summary>
+        public string Type { get; set; } = string.Empty;
 
-        //We can have many products that are 500mg or 2 litres
+        
+        /// <summary>
+        /// A Measurement, e.g. 1 litre can belong to many products
+        /// </summary>
         public ICollection<Product> Products { get; set; } = [];
+
+        ///// <summary>
+        ///// Each 500ml has quantity values. How many cans we have??
+        ///// </summary>
+        //public Quantity? Quantity { get; set; }
     }
 }

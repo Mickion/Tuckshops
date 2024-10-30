@@ -32,10 +32,13 @@ namespace mickion.tuckshops.warehouse.infrastructure.Persistence
 
         protected override void OnModelCreating(ModelBuilder modelBuilder) 
         {
-            modelBuilder.ApplyConfiguration(new BrandConfiguration());
-            modelBuilder.ApplyConfiguration(new MeasurementConfiguration());
-            modelBuilder.ApplyConfiguration(new ProductConfiguration());
-            modelBuilder.ApplyConfiguration(new QuantityConfiguration());            
+            base.OnModelCreating(modelBuilder);
+            //modelBuilder.Entity<Product>().HasIndex(x => x.Name);
+
+            //modelBuilder.ApplyConfiguration(new BrandConfiguration());
+            //modelBuilder.ApplyConfiguration(new MeasurementConfiguration());
+            //modelBuilder.ApplyConfiguration(new ProductConfiguration());
+            //modelBuilder.ApplyConfiguration(new QuantityConfiguration());            
         }
     }
 }

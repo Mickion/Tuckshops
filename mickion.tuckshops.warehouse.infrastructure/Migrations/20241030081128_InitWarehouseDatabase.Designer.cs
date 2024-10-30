@@ -12,8 +12,8 @@ using mickion.tuckshops.warehouse.infrastructure.Persistence;
 namespace mickion.tuckshops.warehouse.infrastructure.Migrations
 {
     [DbContext(typeof(WarehouseDbContext))]
-    [Migration("20241016170714_InitWarehouseDb")]
-    partial class InitWarehouseDb
+    [Migration("20241030081128_InitWarehouseDatabase")]
+    partial class InitWarehouseDatabase
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,6 +24,21 @@ namespace mickion.tuckshops.warehouse.infrastructure.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("MeasurementProduct", b =>
+                {
+                    b.Property<Guid>("MeasurementsId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ProductsId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("MeasurementsId", "ProductsId");
+
+                    b.HasIndex("ProductsId");
+
+                    b.ToTable("MeasurementProduct");
+                });
 
             modelBuilder.Entity("mickion.tuckshops.warehouse.domain.Entities.Brand", b =>
                 {
@@ -39,21 +54,21 @@ namespace mickion.tuckshops.warehouse.infrastructure.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("DATETIME");
+                        .HasColumnType("datetime2");
 
                     b.Property<Guid?>("ModifiedByUserId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime?>("ModifiedDate")
-                        .HasColumnType("DATETIME");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("tblBrands", (string)null);
+                    b.ToTable("Brands");
                 });
 
             modelBuilder.Entity("mickion.tuckshops.warehouse.domain.Entities.Measurement", b =>
@@ -66,24 +81,24 @@ namespace mickion.tuckshops.warehouse.infrastructure.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("DATETIME");
+                        .HasColumnType("datetime2");
 
                     b.Property<Guid?>("ModifiedByUserId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime?>("ModifiedDate")
-                        .HasColumnType("DATETIME");
+                        .HasColumnType("datetime2");
 
                     b.Property<double>("Size")
-                        .HasColumnType("FLOAT");
+                        .HasColumnType("float");
 
                     b.Property<string>("Type")
                         .IsRequired()
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("tblMeasurements", (string)null);
+                    b.ToTable("Measurements");
                 });
 
             modelBuilder.Entity("mickion.tuckshops.warehouse.domain.Entities.Product", b =>
@@ -92,53 +107,48 @@ namespace mickion.tuckshops.warehouse.infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Barcode")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(500)");
-
-                    b.Property<Guid>("BrandId")
+                    b.Property<Guid?>("BrandId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Code")
                         .IsRequired()
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Color")
                         .IsRequired()
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid>("CreatedByUserId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("DATETIME");
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("ExpiryDateTime")
-                        .HasColumnType("DATETIME");
-
-                    b.Property<Guid>("MeasurementsId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("datetime2");
 
                     b.Property<Guid?>("ModifiedByUserId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime?>("ModifiedDate")
-                        .HasColumnType("DATETIME");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(500)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("UseByDateTime")
-                        .HasColumnType("DATETIME");
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
                     b.HasIndex("BrandId");
 
-                    b.HasIndex("MeasurementsId");
-
-                    b.ToTable("tblProducts", (string)null);
+                    b.ToTable("Products");
                 });
 
             modelBuilder.Entity("mickion.tuckshops.warehouse.domain.Entities.Quantity", b =>
@@ -151,15 +161,18 @@ namespace mickion.tuckshops.warehouse.infrastructure.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("DATETIME");
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("MeasurementId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid?>("ModifiedByUserId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime?>("ModifiedDate")
-                        .HasColumnType("DATETIME");
+                        .HasColumnType("datetime2");
 
-                    b.Property<Guid>("ProductId")
+                    b.Property<Guid?>("ProductId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("StockOnHand")
@@ -170,41 +183,48 @@ namespace mickion.tuckshops.warehouse.infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProductId")
-                        .IsUnique();
+                    b.HasIndex("MeasurementId");
 
-                    b.ToTable("tblQuantities", (string)null);
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("Quantities");
+                });
+
+            modelBuilder.Entity("MeasurementProduct", b =>
+                {
+                    b.HasOne("mickion.tuckshops.warehouse.domain.Entities.Measurement", null)
+                        .WithMany()
+                        .HasForeignKey("MeasurementsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("mickion.tuckshops.warehouse.domain.Entities.Product", null)
+                        .WithMany()
+                        .HasForeignKey("ProductsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("mickion.tuckshops.warehouse.domain.Entities.Product", b =>
                 {
                     b.HasOne("mickion.tuckshops.warehouse.domain.Entities.Brand", "Brand")
                         .WithMany("Products")
-                        .HasForeignKey("BrandId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("FK_Brand_Product");
-
-                    b.HasOne("mickion.tuckshops.warehouse.domain.Entities.Measurement", "Measurements")
-                        .WithMany("Products")
-                        .HasForeignKey("MeasurementsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("FK_Measurement_Product");
+                        .HasForeignKey("BrandId");
 
                     b.Navigation("Brand");
-
-                    b.Navigation("Measurements");
                 });
 
             modelBuilder.Entity("mickion.tuckshops.warehouse.domain.Entities.Quantity", b =>
                 {
+                    b.HasOne("mickion.tuckshops.warehouse.domain.Entities.Measurement", "Measurement")
+                        .WithMany()
+                        .HasForeignKey("MeasurementId");
+
                     b.HasOne("mickion.tuckshops.warehouse.domain.Entities.Product", "Product")
-                        .WithOne("Quantity")
-                        .HasForeignKey("mickion.tuckshops.warehouse.domain.Entities.Quantity", "ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("FK_Quantity_Product");
+                        .WithMany()
+                        .HasForeignKey("ProductId");
+
+                    b.Navigation("Measurement");
 
                     b.Navigation("Product");
                 });
@@ -212,17 +232,6 @@ namespace mickion.tuckshops.warehouse.infrastructure.Migrations
             modelBuilder.Entity("mickion.tuckshops.warehouse.domain.Entities.Brand", b =>
                 {
                     b.Navigation("Products");
-                });
-
-            modelBuilder.Entity("mickion.tuckshops.warehouse.domain.Entities.Measurement", b =>
-                {
-                    b.Navigation("Products");
-                });
-
-            modelBuilder.Entity("mickion.tuckshops.warehouse.domain.Entities.Product", b =>
-                {
-                    b.Navigation("Quantity")
-                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

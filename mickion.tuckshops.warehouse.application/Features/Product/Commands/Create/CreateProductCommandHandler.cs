@@ -47,12 +47,12 @@ namespace mickion.tuckshops.warehouse.application.Features.Product.Commands.Crea
             // Process
             response.Name = request.Name;
             response.Color = request.Color;
-            response.Barcode = request.Barcode;
+            response.Description = request.Description;
             response.ExpiryDateTime = request.ExpiryDateTime;
             response.UseByDateTime = request.UseByDateTime;
             response.Brand = await HandleProductBrandAsync(request.ProductBrandName, request.ProductBrandAddress!, cancellationToken).ConfigureAwait(false);
             response.Measurements = await HandleProductMeasurementAsync(request.Measurements, cancellationToken).ConfigureAwait(false);
-            response.Quantity = await HandleProductQuantityAsync(response.Id, request.StockOnHand, request.StockOnOrder, cancellationToken).ConfigureAwait(false);
+            //response.Quantity = await HandleProductQuantityAsync(response.Id, request.StockOnHand, request.StockOnOrder, cancellationToken).ConfigureAwait(false);
 
             response = await _unitOfWork.ProductRepository.AddAsync(response, cancellationToken).ConfigureAwait(false);          
             await _unitOfWork.CommitChangesAsync(cancellationToken).ConfigureAwait(false);
@@ -112,17 +112,17 @@ namespace mickion.tuckshops.warehouse.application.Features.Product.Commands.Crea
         /// <param name="productId"></param>
         /// <param name="cancellationToken"></param>
         /// <returns>Details of the newly created Product Quantity</returns>
-        private async Task<Quantity> HandleProductQuantityAsync(Guid productId, int stockOnHand, int stockOnOrder, CancellationToken cancellationToken)
-        {
-            var productQuantity =
-                await _unitOfWork.QuantityRepository.FindAsync(x => x.ProductId == productId, cancellationToken);
+        //private async Task<Quantity> HandleProductQuantityAsync(Guid productId, int stockOnHand, int stockOnOrder, CancellationToken cancellationToken)
+        //{
+        //    var productQuantity =
+        //        await _unitOfWork.QuantityRepository.FindAsync(x => x.ProductId == productId, cancellationToken);
 
-            if (productQuantity is null)
-                // If measurement match dont exists, create one
-                productQuantity = await _unitOfWork.QuantityRepository.AddAsync(new() { ProductId= productId, StockOnHand = stockOnHand, StockOnOrder = stockOnOrder}, cancellationToken);
+        //    if (productQuantity is null)
+        //        // If measurement match dont exists, create one
+        //        productQuantity = await _unitOfWork.QuantityRepository.AddAsync(new() { ProductId= productId, StockOnHand = stockOnHand, StockOnOrder = stockOnOrder}, cancellationToken);
 
-            return productQuantity;
-        }
+        //    return productQuantity;
+        //}
         #endregion
     }
 }
