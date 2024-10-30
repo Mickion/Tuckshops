@@ -13,8 +13,6 @@ namespace mickion.tuckshops.warehouse.application.Extensions
                 product.Name,
                 product.Color,
                 product.Description,
-                product.ExpiryDateTime,
-                product.UseByDateTime,
                 product.Brand.ToBrandDto(),
                 product.Measurements,
                 //product.Quantity,

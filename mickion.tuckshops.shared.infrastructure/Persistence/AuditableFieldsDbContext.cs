@@ -2,13 +2,15 @@
 using Microsoft.EntityFrameworkCore;
 using mickion.tuckshops.shared.domain.Entities;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using mickion.tuckshops.shared.domain.Contracts.Entities;
+using System.Collections;
 
 namespace mickion.tuckshops.shared.infrastructure.Persistence
 {
     /// <summary>
     /// Re-usable audit fields context when something changes
     /// </summary>
-    public abstract class AuditFieldsDbContext(DbContextOptions options) : DbContext(options)
+    public abstract class AuditableFieldsDbContext(DbContextOptions options) : DbContext(options)
     {
         /// <summary>
         /// Gets user account of person making changes
@@ -35,9 +37,13 @@ namespace mickion.tuckshops.shared.infrastructure.Persistence
         /// </summary>
         private void AuditEntityCreation() =>            
             ChangeTracker.Entries().Where(e => e.State == EntityState.Added).ToList().ForEach(e =>
-            {
-                e.Property("CreatedDate").CurrentValue = DateTime.Now;
-                e.Property("CreatedByUserId").CurrentValue = GetLoggedInUserIdentity().Id;
+            {     
+                // Track only objects that implements IEntity                
+                if(e.Entity is IAuditableEntity && e.Entity is not IEnumerable && e.Entity is not IDictionary)
+                {
+                    e.Property("CreatedDate").CurrentValue = DateTime.Now;
+                    e.Property("CreatedByUserId").CurrentValue = GetLoggedInUserIdentity().Id;
+                }
             });
         
 
@@ -47,8 +53,13 @@ namespace mickion.tuckshops.shared.infrastructure.Persistence
         private void AuditEntityModification() =>        
             ChangeTracker.Entries().Where(e => e.State == EntityState.Modified).ToList().ForEach(e =>
             {
-                e.Property("ModifiedDate").CurrentValue = DateTime.Now;
-                e.Property("ModifiedByUserId").CurrentValue = GetLoggedInUserIdentity().Id;
+                // Track only objects that implements IEntity
+                if (e.Entity is IAuditableEntity && e.Entity is not IEnumerable && e.Entity is not IDictionary)
+                {
+                    e.Property("ModifiedDate").CurrentValue = DateTime.Now;
+                    e.Property("ModifiedByUserId").CurrentValue = GetLoggedInUserIdentity().Id;
+                }
+
             });        
     }
 }

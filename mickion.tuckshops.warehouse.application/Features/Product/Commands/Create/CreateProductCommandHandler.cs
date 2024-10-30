@@ -48,10 +48,12 @@ namespace mickion.tuckshops.warehouse.application.Features.Product.Commands.Crea
             response.Name = request.Name;
             response.Color = request.Color;
             response.Description = request.Description;
-            response.ExpiryDateTime = request.ExpiryDateTime;
-            response.UseByDateTime = request.UseByDateTime;
-            response.Brand = await HandleProductBrandAsync(request.ProductBrandName, request.ProductBrandAddress!, cancellationToken).ConfigureAwait(false);
-            response.Measurements = await HandleProductMeasurementAsync(request.Measurements, cancellationToken).ConfigureAwait(false);
+            response.Code = $"{request.Color}_{request.Name}";
+
+
+            response.Brand = new();
+            response.Brand = await GetOrCreateProductBrandAsync(request.ProductBrandName, request.ProductBrandAddress!, cancellationToken).ConfigureAwait(false);
+            response.Measurements = await GetOrCreateProductMeasurementAsync(response, request.Measurements, response.Id, cancellationToken).ConfigureAwait(false);
             //response.Quantity = await HandleProductQuantityAsync(response.Id, request.StockOnHand, request.StockOnOrder, cancellationToken).ConfigureAwait(false);
 
             response = await _unitOfWork.ProductRepository.AddAsync(response, cancellationToken).ConfigureAwait(false);          
@@ -67,62 +69,89 @@ namespace mickion.tuckshops.warehouse.application.Features.Product.Commands.Crea
         /// <summary>
         /// Creates new product brand if it doesn't exists
         /// </summary>
-        /// <param name="productBrand"></param>
+        /// <param name="brandName"></param>
+        /// <param name="brandAddress"></param>
         /// <param name="cancellationToken"></param>
-        /// <returns>Details of the newly created Product Brand</returns>
-        private async Task<Brand> HandleProductBrandAsync(string brandName, string brandAddress, CancellationToken cancellationToken)
+        /// <returns></returns>
+        private async Task<Brand> GetOrCreateProductBrandAsync(string brandName, string brandAddress, CancellationToken cancellationToken)
         {            
-            var brand = await _unitOfWork.BrandRepository.FindAsync(x => x.Name.ToLower() == brandName.ToLower());
-
+            var brand = 
+                await _unitOfWork.BrandRepository.FindAsync(x => x.Name.ToLower() == brandName.ToLower());
+                        
             if (brand is null)
                 // If brand dont exists, create one
-                brand = await _unitOfWork.BrandRepository.AddAsync(new() { Name = brandName, Address = brandAddress }, cancellationToken);
-            
+                brand = await _unitOfWork.BrandRepository.AddAsync(new() { Name = brandName, Address = brandAddress }, cancellationToken);            
+        
             return brand;
         }
 
         /// <summary>
         /// Creates new product measurements if none exists.
         /// </summary>
+        /// <param name="product"></param>
         /// <param name="productMeasurement"></param>
+        /// <param name="productId"></param>
         /// <param name="cancellationToken"></param>
-        /// <returns>Details of the newly created Product Measurement</returns>
-        private async Task<IEnumerable<Measurement>> HandleProductMeasurementAsync(IEnumerable<MeasurementDto> productMeasurement, CancellationToken cancellationToken)
+        /// <returns></returns>
+        private async Task<IEnumerable<Measurement>> GetOrCreateProductMeasurementAsync(domain.Entities.Product product, IEnumerable<MeasurementDto> productMeasurement,Guid productId, CancellationToken cancellationToken)
         {
             List<Measurement> measurements = [];
 
+            // Foreach measurement, create linked qty & prices
             foreach (var measurementItem in productMeasurement) {
+
                 var measurement =
                     await _unitOfWork.MeasurementRepository.FindAsync(x => x.Size == measurementItem.Size && x.Type.ToLower() == measurementItem.Type.ToLower(), cancellationToken);
 
-                if (measurement is null)
-                    // If measurement match dont exists, create one
-                    measurement = await _unitOfWork.MeasurementRepository.AddAsync(new() { Size = measurementItem.Size, Type = measurementItem.Type }, cancellationToken);
-
+                // If measurement dont exists (null coalescing operator), create one
+                measurement ??= await _unitOfWork.MeasurementRepository.AddAsync(new() { Size = measurementItem.Size, Type = measurementItem.Type }, cancellationToken);
                 measurements.Add(measurement);
+
+                // For each measurement, create linked quantity and prices
+                var measurementQty = await CreateProductQuantityAsync(product, measurement, measurementItem.StockOnHand, measurementItem.StockOnOrder, cancellationToken);
+                var measurementPrice = await CreateProductPriceAsync(product, measurement, measurementItem.BuyingPrice, measurementItem.SellingPrice, cancellationToken);
             }
 
             return measurements;
         }
 
+
         /// <summary>
         /// Creates new product quantity if none exists.
         /// </summary>
-        /// <param name="productQty"></param>
-        /// <param name="productId"></param>
+        /// <param name="product"></param>
+        /// <param name="measurement"></param>
+        /// <param name="stockOnHand"></param>
+        /// <param name="stockOnOrder"></param>
         /// <param name="cancellationToken"></param>
-        /// <returns>Details of the newly created Product Quantity</returns>
-        //private async Task<Quantity> HandleProductQuantityAsync(Guid productId, int stockOnHand, int stockOnOrder, CancellationToken cancellationToken)
-        //{
-        //    var productQuantity =
-        //        await _unitOfWork.QuantityRepository.FindAsync(x => x.ProductId == productId, cancellationToken);
+        /// <returns></returns>
+        private async Task<Quantity> CreateProductQuantityAsync(domain.Entities.Product product, Measurement measurement, int stockOnHand, int stockOnOrder, CancellationToken cancellationToken)
+        {
+            var productQuantity =
+                await _unitOfWork.QuantityRepository.FindAsync(x => x.Product!.Id == product.Id && x.Measurement!.Id == measurement.Id, cancellationToken);
 
-        //    if (productQuantity is null)
-        //        // If measurement match dont exists, create one
-        //        productQuantity = await _unitOfWork.QuantityRepository.AddAsync(new() { ProductId= productId, StockOnHand = stockOnHand, StockOnOrder = stockOnOrder}, cancellationToken);
+            return (productQuantity is not null) ? productQuantity :  // If measurement match dont exists, create one
+                await _unitOfWork.QuantityRepository.AddAsync(new() { StockOnHand = stockOnHand, StockOnOrder = stockOnOrder, Product = product, Measurement = measurement }, cancellationToken);
+        }
 
-        //    return productQuantity;
-        //}
+
+        /// <summary>
+        /// Creates new product price if none exists.
+        /// </summary>
+        /// <param name="product"></param>
+        /// <param name="measurement"></param>
+        /// <param name="buyingPrice"></param>
+        /// <param name="sellingPrice"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        private async Task<Price> CreateProductPriceAsync(domain.Entities.Product product, Measurement measurement, decimal buyingPrice, decimal sellingPrice, CancellationToken cancellationToken)
+        {
+            var productPrice =
+                await _unitOfWork.PriceRepository.FindAsync(x => x.Product!.Id == product.Id && x.Measurement!.Id == measurement.Id, cancellationToken);
+
+            return (productPrice is not null) ? productPrice : // If measurement match dont exists, create one
+                await _unitOfWork.PriceRepository.AddAsync(new() { BuyingPrice = buyingPrice, SellingPrice = sellingPrice, Product = product, Measurement = measurement }, cancellationToken);
+        }
         #endregion
     }
 }

@@ -8,7 +8,7 @@ namespace mickion.tuckshops.shared.domain.Contracts.Repositories.Base;
 /// All entities must implement the IEntity interface.
 /// </summary>
 /// <typeparam name="TEntity"></typeparam>
-public interface IRepository<TEntity> where TEntity : class, IEntity
+public interface IRepository<TEntity> where TEntity : class, IAuditableEntity
 {
     #region Get data methods
     IQueryable<TEntity> GetAll(bool readOnly = false);

@@ -19,7 +19,8 @@ namespace mickion.tuckshops.warehouse.infrastructure.Repositories.Base
        
         public IRepository<Measurement> MeasurementRepository => GetRepository<Measurement>(dbContext);
 
-        public IRepository<Quantity> QuantityRepository => GetRepository<Quantity>(dbContext);        
+        public IRepository<Quantity> QuantityRepository => GetRepository<Quantity>(dbContext);
 
+        public IRepository<Price> PriceRepository => GetRepository<Price>(dbContext);
     }
 }

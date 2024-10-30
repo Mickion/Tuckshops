@@ -5,8 +5,6 @@ public record ProductDto(
     string Name,
     string Color,
     string Barcode,
-    DateTime ExpiryDateTime,
-    DateTime UseByDateTime,
     BrandDto Brand,
     IEnumerable<Measurement> Measurements,
     //Quantity Quantity,

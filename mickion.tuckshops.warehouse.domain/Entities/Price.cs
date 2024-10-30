@@ -1,28 +1,26 @@
 ﻿using mickion.tuckshops.shared.domain.Contracts.Entities;
-using mickion.tuckshops.shared.domain.Entities;
 
 namespace mickion.tuckshops.warehouse.domain.Entities
 {
-    public class Quantity: IAuditableEntity
+    public class Price: IAuditableEntity
     {
-
         /// <summary>
-        /// Gets or sets Product Measurement StockOnHand
+        /// Gets or sets the amount we buy the product for
         /// </summary>
-        public int StockOnHand { get; set; }
+        public decimal BuyingPrice { get; set; }
 
         /// <summary>
-        /// Gets or sets Product Measurement StockOnOrder
+        /// Gets or sets the amount we sell the product for
         /// </summary>
-        public int StockOnOrder { get; set; }
+        public decimal SellingPrice { get; set; }
 
         /// <summary>
-        /// Each stock quantity belongs to Product + Measurement (i.e. 500mg bread)
+        /// Each Price quantity belongs to Product + Measurement (i.e. 500mg bread)
         /// </summary>
         public Product? Product { get; set; }
 
         /// <summary>
-        /// Each stock quantity belongs to Product + Measurement (i.e. 500mg bread)
+        /// Each Price quantity belongs to Product + Measurement (i.e. 500mg bread)
         /// </summary>
         public Measurement? Measurement { get; set; }
 

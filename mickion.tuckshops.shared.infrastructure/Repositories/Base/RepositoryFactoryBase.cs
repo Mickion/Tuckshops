@@ -17,7 +17,7 @@ namespace mickion.tuckshops.shared.infrastructure.Repositories.Base
         /// </summary>
         /// <typeparam name="TEntity"></typeparam>
         /// <returns></returns>
-        protected virtual IRepository<TEntity> GetRepository<TEntity>(DbContext dbContext) where TEntity : class, IEntity
+        protected virtual IRepository<TEntity> GetRepository<TEntity>(DbContext dbContext) where TEntity : class, IAuditableEntity
         {
             //Check if already new'd up the repo
             if (_repositories.ContainsKey(typeof(TEntity)))

@@ -13,5 +13,6 @@ namespace mickion.tuckshops.warehouse.domain.Contracts.Repositories.Base
         IRepository<Product> ProductRepository { get; }        
         IRepository<Measurement> MeasurementRepository { get; }
         IRepository<Quantity> QuantityRepository { get; }        
+        IRepository<Price> PriceRepository { get; }        
     }
 }

@@ -7,7 +7,7 @@ using System.Linq.Expressions;
 
 namespace mickion.tuckshops.shared.infrastructure.Repositories.Base
 {
-    public class Repository<TEntity>(DbSet<TEntity> dbSet) : IRepository<TEntity> where TEntity : class, IEntity
+    public class Repository<TEntity>(DbSet<TEntity> dbSet) : IRepository<TEntity> where TEntity : class, IAuditableEntity
     {
         #region Private variables
         private readonly DbSet<TEntity> _dbSet = dbSet ?? throw new ArgumentNullException(nameof(dbSet));

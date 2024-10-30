@@ -1,40 +1,56 @@
-﻿using mickion.tuckshops.shared.domain.Contracts.Entities;
-using mickion.tuckshops.shared.domain.Entities;
+﻿
 using System.ComponentModel.DataAnnotations;
+using mickion.tuckshops.shared.domain.Contracts.Entities;
 
 namespace mickion.tuckshops.warehouse.domain.Entities
 {
-    public class Product: BaseEntity, IEntity
+    public class Product: IAuditableEntity
     {
+
+        /// <summary>
+        /// Gets or sets Code (Color+Bread)
+        /// </summary>
+        public string Code { get; set; } = string.Empty;
+
+        /// <summary>
+        /// Gets or sets Product Name
+        /// </summary>
         [Required]
-        public string Code { get; set; } = string.Empty; //TODO: Generate unique code
+        public string Name { get; set; } = string.Empty;
 
+        /// <summary>
+        /// Gets or sets Product Color
+        /// </summary>
         [Required]
-        public string Name { get; set; } = string.Empty; // i.e. Bread
+        public string Color { get; set; } = string.Empty;
 
-        public string Description { get; set; } = string.Empty; // (optional)
-
-        public string Color { get; set; } = string.Empty; // i.e. White bread (optional)
-                
-        //public string Barcode { get; set; } = string.Empty; // TODO: Prop own entity
-
-        [Required]
-        public DateTime ExpiryDateTime { get; set; } = default;
-
-        [Required]
-        public DateTime UseByDateTime { get; set; } = default;
-
+        /// <summary>
+        /// Gets or sets Product Description
+        /// </summary>
+        public string Description { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets product brand
         /// </summary>
         public Brand? Brand { get; set; }
-
-                
+                        
         /// <summary>
         /// A product can have many various sizes, 2litre, 3litre, 4litre
         /// </summary>
         public IEnumerable<Measurement>? Measurements { get; set; }
+
+        #region IAuditableEntity
+        public Guid Id { get; set; }
+        public DateTime CreatedDate { get; set; }
+        public Guid CreatedByUserId { get; set; }
+        public DateTime? ModifiedDate { get; set; }
+        public Guid? ModifiedByUserId { get; set; }
+        #endregion
+
+        public Product()
+        {
+            this.Id = Guid.NewGuid();
+        }
 
     }
 }
